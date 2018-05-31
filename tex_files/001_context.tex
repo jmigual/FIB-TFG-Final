@@ -329,6 +329,33 @@ The convolution operation is defined by three parameters:
   it's not mandatory.
 \end{description}
 
+An example of convolutional operation can be seen in \autoref{fig:conv-operation}. The convolution
+operator is denoted by \( * \). If the matrix input size for one dimension is \( n_{\text{prev}} \)
+the output size will be defined by:
+\begin{align*}
+  \frac{n_{\text{prev}} + p - f}{s} + 1
+\end{align*}
+
+\begin{figure}
+  \centering
+  \input{drawings/convolution_operation.tikz.tex}
+  \caption[Convolution operation example]{
+    Example of Convolution operation applied to a \( 7 \times 7 \) matrix with a 
+    \( 3 \times 3 \) filter. The output is a \( 5 \times 5 \) matrix.
+    \label{fig:conv-operation}
+  }
+\end{figure}
+
+By replacing the matrix multiplication, with the convolution operation over the previous layer 
+activations a convolutional neural network is created. 
+\begin{align*}
+  \bm{z}^{[l]} &= \bm{W}^{[l]} \cdot \bm{a}^{[l - 1]} + \bm{b}^{[l - 1]} \\
+  &\downarrow \text{becomes} \\
+  \bm{z}^{[l]} &= \bm{a}^{[l - 1]} * \bm{W}^{[l]} + \bm{b}^{[l - 1]}
+\end{align*}
+
+For this to work the number of dimensions of \( \bm{W}^{[l]} \) and \( \bm{a}^{[l - 1]} \)
+must be the same. 
 
 \ssecc{State-of-the-art}
 
