@@ -37,32 +37,33 @@ sub mpost {
 
 $latex = 'latex %O -shell-escape %S';
 $pdflatex = 'pdflatex %O -shell-escape %S';
-#$lualatex = 'lualatex %O --shell-escape --synctex=0 %S';
+$lualatex = 'lualatex %O --shell-escape --synctex=0 %S %B';
 
 
 our %externalflag = ();
 
-$lualatex = 'internal mypdflatex %O --shell-escape --synctex=0 %S %B';
+# $lualatex = 'internal mypdflatex %O --shell-escape --synctex=0 %S %B';
+
 
 use Cwd;
 
-sub mypdflatex {
-  our %externalflag;
-  my $n = scalar(@_);
-  my @args = @_[0 .. $n - 2];
-  my $base = $_[$n - 1];
+# sub mypdflatex {
+#   our %externalflag;
+#   my $n = scalar(@_);
+#   my @args = @_[0 .. $n - 2];
+#   my $base = $_[$n - 1];
 
-  system 'lualatex', @args;
-  if ($? != 0) {
-    return $?
-  }
-  if ( !defined $externalflag->{$base} ) {
-    $externalflag->{$base} = 1;
-    my $dir = getcwd();
-    print "Dir $dir \n";
-    print "$make -j4 -f $base.makefile\n";
-    system ("$make -j4 -f $base.makefile");
-  }
-  return $?;
-}
+#   system 'lualatex', @args;
+#   if ($? != 0) {
+#     return $?
+#   }
+#   if ( !defined $externalflag->{$base} ) {
+#     $externalflag->{$base} = 1;
+#     my $dir = getcwd();
+#     print "Dir $dir \n";
+#     print "$make -j4 -f $base.makefile\n";
+#     system ("$make -j4 -f $base.makefile");
+#   }
+#   return $?;
+# }
 

@@ -1,5 +1,9 @@
+.vscode/
+
 .DS_store
+
 build/
+
 *.aux
 *.dep
 *.dpth
