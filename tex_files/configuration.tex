@@ -59,7 +59,10 @@ urlcolor={blue!80!black}]{hyperref}
 
 \pgfplotsset{compat=1.15}
 \usetikzlibrary{positioning, external}
-\tikzexternalize[optimize=false, mode=list and make]
+\tikzexternalize[
+    optimize=false, 
+    % mode=list and make
+]
 % \tikzset{%
 %   % external/system call={lualatex \tikzexternalcheckshellescape --halt-on-error --interaction=batchmode --jobname "\image" "\texsource"},
 %   external/system call={lualatex \tikzexternalcheckshellescape --halt-on-error --interaction=batchmode --output-directory=./build --jobname "\image" "\texsource"},
