@@ -29,4 +29,5 @@ build/
 *.xdy
 *.makefile
 *.out
+*.auxlock
 .~lock.*

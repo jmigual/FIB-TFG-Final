@@ -60,7 +60,8 @@ urlcolor={blue!80!black}]{hyperref}
 \pgfplotsset{compat=1.15}
 \usetikzlibrary{positioning, external}
 \tikzexternalize[
-    optimize=false, 
+    optimize=false,
+    prefix=tikz_build/,
     % mode=list and make
 ]
 % \tikzset{%
