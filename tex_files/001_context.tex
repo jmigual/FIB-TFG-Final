@@ -1,4 +1,4 @@
-% !TEX root = main.tex
+% !TEX root = ../main.tex
 
 \secc[Context]{Context and scope of the project}
 \ssecc{Context}
@@ -301,9 +301,14 @@ To minimize the objective function, the gradient descent algorithm is used. It's
 algorithm that updates the weights by partial derivative of the cost function with respect to 
 the weight:
 \begin{align*}
-  w_{ij}^{[l]} = w_{ij}^{[l]} - \alpha 
+  \underbrace{w_{ij}^{[l]}}_{\text{new}} = \underbrace{w_{ij}^{[l]}}_{\text{old}} - \alpha 
   \frac{\partial C(\bm{y}, \hat{\bm{y}})}{\partial w_{ij}^{[l]}}
 \end{align*}
+
+To update all the network's parameters the back-propagation algorithm is used. It's based
+in the chain rule derivative and it updates the parameters from the last layer to the first
+one.
+~\cite{neural:efficient-backprop}
 
 %TODO: Finish this section
 
