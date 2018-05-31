@@ -310,7 +310,24 @@ in the chain rule derivative and it updates the parameters from the last layer t
 one.
 ~\cite{neural:efficient-backprop}
 
-%TODO: Finish this section
+
+\sssecc{Convolutional Neural Networks}
+
+\glspl{CNN} are a subset of \gls{NN}. This type of networks are used for tasks such as computer vision
+due to the high accuracy that can be achieved in image recognition problems. However, they have
+some disadvantages such as high computational cost or a dependence on specific hardware such as GPUs.
+Even though they can be used without GPUs the operations it performs can be really optimized by these
+type of processors. As an example 2D convolutions will be explained in this section, although the 
+same concept can be applied to K-dimensional elements.
+
+The convolution operation is defined by three parameters:
+\begin{description}
+  \item[Padding] \( p \) amount of extra space added around the matrix being convoluted, usually in
+  form of 0s.
+  \item[Stride] \( s \) displacement of the filter
+  \item[Filter size] \( f \) size of the filter matrix, usually it has the same width as height but
+  it's not mandatory.
+\end{description}
 
 
 \ssecc{State-of-the-art}
