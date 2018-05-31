@@ -59,18 +59,11 @@ urlcolor={blue!80!black}]{hyperref}
 
 \pgfplotsset{compat=1.15}
 \usetikzlibrary{positioning, external}
-\tikzexternalize[
-    optimize=false,
-    prefix=tikz_build/,
-    % mode=list and make
-]
-% \tikzset{%
-%   % external/system call={lualatex \tikzexternalcheckshellescape --halt-on-error --interaction=batchmode --jobname "\image" "\texsource"},
-%   external/system call={lualatex \tikzexternalcheckshellescape --halt-on-error --interaction=batchmode --output-directory=./build --jobname "\image" "\texsource"},
-%   /pgf/images/include external/.code={%
-%     \includegraphics{build/#1}%
-%   },
-% }
+% \tikzexternalize[
+%     optimize=false,
+%     prefix=tikz_build/,
+%     % mode=list and make
+% ]
 
 \setmainfont{CMU Serif}
 \setmonofont[Scale=MatchLowercase]{Source Code Pro}
@@ -129,7 +122,7 @@ urlcolor={blue!80!black}]{hyperref}
 \setlist[itemize]{topsep=0em, noitemsep}
 \def\mscname{Joan Marcè i Igual}
 
-\setlength{\headheight}{13.6pt} %add some space to headheight to eliminate LaTeX "Overfull \vbox..." warnings
+% \setlength{\headheight}{13.6pt} %add some space to headheight to eliminate LaTeX "Overfull \vbox..." warnings
 
 \fancyhead[EL, OR]{\thepage}
 \fancyhead[ER]{\rightmark}
