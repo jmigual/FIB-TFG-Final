@@ -211,7 +211,7 @@ method which has had really good results in many fields.
 
 A neural network is a two-stage regression or classification algorithm, typically represented
 by a graph (or network) diagram as seen in \autoref{fig:neural_network}. It is composed by 
-\( L \) layers and layer has multiple units. The number of units in layer \( l \) 
+\( L \) layers and each layer has multiple units. The number of units in layer \( l \) 
 is defined by  \( n^{[l]} \).
 
 Each hidden unit has an activation (output) computed in two steps, the linear and the 
@@ -228,9 +228,18 @@ and unit \( i \) of layer \( l \).
 The non-linear step is defined by applying a non-linear function, called activation, 
 (\( g^{[l]} \)) to the linear part. 
 Multiple activation functions can be seen in \autoref{fig:activation_functions}. Depending
-on the application a different activation function may be used, for example in 
+on the application, a different activation function may be used, for example in 
 \glspl{CNN} usually the ReLU function is used due to the low computational complexity. 
+These are defined as:
 ~\cite{neural:bishop}
+\begin{itemize}[itemsep=1ex]
+  \item Rectified Linear Unit function 
+  \( g(x) = \max(0, x) \)
+  \item Hyperbolic tangent function 
+  \( \displaystyle g(x) = \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\)
+  \item Logistic function 
+  \( g(x) = \frac{1}{1 + e^{-x}} \)
+\end{itemize}
 
 So, the whole activation for unit \( i \) of layer \( l \) is as follows:
 \begin{align*}
@@ -238,21 +247,12 @@ So, the whole activation for unit \( i \) of layer \( l \) is as follows:
   a_i^{[l]} &= g^{[l]}(z_i^{[l]})
 \end{align*}
 
-By using a matrix notation, it can be applied to a whole layer's units:
+By using a matrix notation, it can be applied to the whole layer's units:
 \begin{align*}
   \bm{z}^{[l]} &= \bm{W}^{[l]} \cdot \bm{a}^{[l - 1]} + \bm{b}^{[l]} \\
   \bm{a}^{[l]} &= g^{[l]}(\bm{z}^{[l]})
 \end{align*}
 
-Some linear functions can be seen in \autoref{fig:activation_functions}. They are defined as:
-\begin{itemize}
-  \item Rectified Linear Unit function 
-  \( g(x) = \max(0, x) \)
-  \item Hyperbolic tangent function 
-  \( g(x) = \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\)
-  \item Logistic function 
-  \( g(x) = \frac{1}{1 + e^{-x}} \)
-\end{itemize}
 
 \begin{figure}
   \centering
@@ -287,7 +287,7 @@ one of the \( K \) classes:
   g_k^{[L]}(\bm{a}^{[L - 1]}) = \frac{e^{a_k^{[L - 1]}}}{\sum_{i = 1}^K e^{a_i^{[L - 1]}}}
 \]
 
-A \gls{NN} has unknown parameters \( \bm{W}^{[l]} \), called weights, and the objective is
+As it has been said, a \gls{NN} has unknown parameters \( \bm{W}^{[l]} \), called weights, and the objective is
 to find the values that make the model fit the training data well. The cost function 
 is the objective function to be minimized, for regression it's usually defined as 
 the mean squared error:
@@ -297,9 +297,9 @@ the mean squared error:
   C(\bm{y}, \hat{\bm{y}}) &:= \frac{1}{N} \sum_{i = 1}^N (y_i - \hat{y}_i)^2
 \end{align*}
 
-To minimize the objective function, the gradient descent algorithm is used. It's an iterative
+To minimize the objective function, the gradient descent algorithm is used. It is an iterative
 algorithm that updates the weights by partial derivative of the cost function with respect to 
-the weight:
+the weight. The amount to be updated is defined by the learning rate \( \alpha \):
 \begin{align*}
   \underbrace{w_{ij}^{[l]}}_{\text{new}} = \underbrace{w_{ij}^{[l]}}_{\text{old}} - \alpha 
   \frac{\partial C(\bm{y}, \hat{\bm{y}})}{\partial w_{ij}^{[l]}}
@@ -313,24 +313,40 @@ one.
 
 \sssecc{Convolutional Neural Networks}
 
-\glspl{CNN} are a subset of \gls{NN}. This type of networks are used for tasks such as computer vision
-due to the high accuracy that can be achieved in image recognition problems. However, they have
-some disadvantages such as high computational cost or a dependence on specific hardware such as GPUs.
-Even though they can be used without GPUs the operations it performs can be really optimized by these
-type of processors. As an example 2D convolutions will be explained in this section, although the 
-same concept can be applied to K-dimensional elements.
+\glspl{CNN} are a subset of \gls{NN}. This type of networks are used for tasks such as 
+computer vision due to the high accuracy that can be achieved in image recognition problems. 
+However, they have some disadvantages such as high computational cost or a dependence on 
+specific hardware such as GPUs. Even though they can be used without GPUs the operations 
+it performs can be really optimized by these type of processors. As an example 2D convolutions 
+will be explained in this section, although the same concept can be applied to K-dimensional 
+elements.
 
-The convolution operation is defined by three parameters:
+The convolution operator is denoted by \( * \). In \gls{ML}, the input is usually 
+a multi-dimensional array and the convolution kernel is usually another multi-dimensional
+array of parameters that are learned by the learning algorithm. When working with 
+convolutions, the kernel matrix is flipped before performing the operations. However,
+many \gls{NN} libraries perform the cross-correlation operation, which is the same
+but without flipping the kernel. A graphical example of the convolutional operation 
+can be seen in \autoref{fig:conv-operation}.
+~\cite{neural:deeplearning-book}
+
+Usually, a convolutional layer is defined by four parameters:
 \begin{description}
-  \item[Padding] \( p \) amount of extra space added around the matrix being convoluted, usually in
-  form of 0s.
+  \item[Padding] \( p \) amount of extra space added around the matrix being convoluted, 
+  usually in form of 0s. This defines the following terms:
+  \begin{description}
+    \item[Same] Add padding so the output size ends up being the same as the input size
+    \item[Valid] Do not add padding at all
+  \end{description}
   \item[Stride] \( s \) displacement of the filter
   \item[Filter size] \( f \) size of the filter matrix, usually it has the same width as height but
   it's not mandatory.
+  \item[Number of filters] amount of different kernels that will be used to filter the input
+  image to generate multiple images as output. It can be seen as filtering first the 
+  vertical lines, then the horizontal ones and so on.
 \end{description}
 
-An example of convolutional operation can be seen in \autoref{fig:conv-operation}. The convolution
-operator is denoted by \( * \). If the matrix input size for one dimension is \( n_{\text{prev}} \)
+Having all the parameters, if the matrix input size for one dimension is \( n_{\text{prev}} \)
 the output size will be defined by:
 \begin{align*}
   n_{\text{next}} = \left\lfloor\frac{n_{\text{prev}} + p - f}{s}\right\rfloor + 1
