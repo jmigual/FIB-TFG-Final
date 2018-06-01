@@ -313,13 +313,10 @@ one.
 
 \sssecc{Convolutional Neural Networks}
 
-\glspl{CNN} are a subset of \gls{NN}. This type of networks are used for tasks such as 
-computer vision due to the high accuracy that can be achieved in image recognition problems. 
-However, they have some disadvantages such as high computational cost or a dependence on 
-specific hardware such as GPUs. Even though they can be used without GPUs the operations 
-it performs can be really optimized by these type of processors. As an example 2D convolutions 
-will be explained in this section, although the same concept can be applied to K-dimensional 
-elements.
+\glspl{CNN} are a subset of \glspl{NN}. These networks are used for tasks such as 
+computer vision due to the high accuracy that can be achieved in image recognition problems.
+They can be accelerated through hardware such as \glspl{GPU}. Even though they can be used 
+without \glspl{GPU} the operations can be really optimized by these type of processors. 
 
 The convolution operator is denoted by \( * \). In \gls{ML}, the input is usually 
 a multi-dimensional array and the convolution kernel is usually another multi-dimensional
@@ -331,7 +328,7 @@ can be seen in \autoref{fig:conv-operation}.
 ~\cite{neural:deeplearning-book}
 
 Usually, a convolutional layer is defined by four parameters:
-\begin{description}
+\begin{description}[topsep=0em]
   \item[Padding] \( p \) amount of extra space added around the matrix being convoluted, 
   usually in form of 0s. This defines the following terms:
   \begin{description}
@@ -346,12 +343,11 @@ Usually, a convolutional layer is defined by four parameters:
   vertical lines, then the horizontal ones and so on.
 \end{description}
 
-Having all the parameters, if the matrix input size for one dimension is \( n_{\text{prev}} \)
+Having all the parameters, if one of the dimension's input size is \( n_{\text{prev}} \)
 the output size will be defined by:
 \begin{align*}
   n_{\text{next}} = \left\lfloor\frac{n_{\text{prev}} + p - f}{s}\right\rfloor + 1
 \end{align*}
-% TODO: Finish this section
 
 \begin{figure}
   \centering
@@ -373,9 +369,6 @@ matrix.
   \bm{\mathsf{Z}}^{[l]} &= \bm{\mathsf{A}}^{[l - 1]} * \bm{\mathsf{W}}^{[l]} + 
   \bm{\mathsf{B}}^{[l - 1]}
 \end{align*}
-
-For this to work the number of dimensions of \( \bm{W}^{[l]} \) and \( \bm{a}^{[l - 1]} \)
-must be the same. 
 
 \ssecc{State-of-the-art}
 
@@ -562,12 +555,12 @@ improve the results from the previous ones.
 Since this project involves \gls{CNN}, the training time can be a problem. 
 The convolution operation is computationally expensive so, depending on the network, the 
 training time can be of several days. Usually this type of networks are trained using 
-GPUs since the convolution operation can be performed faster in this type of processor. 
+\glspl{GPU} since the convolution operation can be performed faster in this type of processor. 
 Also, while just inferring the values does not require
 much power, training needs a lot more power. 
 
 To solve this problem, the training will be done at \gls{CC} a computing facility which 
-has multiple computing clusters with GPUs.
+has multiple computing clusters with \glspl{GPU}.
 
 \sssecc{Monitoring Tools}
 
