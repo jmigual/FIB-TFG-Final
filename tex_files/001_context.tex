@@ -363,14 +363,14 @@ the output size will be defined by:
   }
 \end{figure}
 
-To form the convolutional layer, the matrix multiplication with the previous layer's activation vector 
-gets replaced by the convolution operation over the activation matrix. In this case the activations are 
-a matrix too to be able to do a 2D convolution. If a 3D convolution is going to be used, 3-dimensional 
-tensors are required instead.
+To form the convolutional layer, the matrix multiplication with the previous layer's 
+activation vector gets replaced by the convolution operation over the activation 
+matrix. 
 \begin{align*}
   \bm{z}^{[l]} &= \bm{W}^{[l]} \cdot \bm{a}^{[l - 1]} + \bm{b}^{[l - 1]} \\
   &\downarrow \text{becomes} \\
-  \bm{Z}^{[l]} &= \bm{A}^{[l - 1]} * \bm{W}^{[l]} + \bm{B}^{[l - 1]}
+  \bm{\mathsf{Z}}^{[l]} &= \bm{\mathsf{A}}^{[l - 1]} * \bm{\mathsf{W}}^{[l]} + 
+  \bm{\mathsf{B}}^{[l - 1]}
 \end{align*}
 
 For this to work the number of dimensions of \( \bm{W}^{[l]} \) and \( \bm{a}^{[l - 1]} \)
