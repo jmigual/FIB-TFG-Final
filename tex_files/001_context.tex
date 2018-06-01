@@ -9,35 +9,40 @@ to interact with their phone by only using voice commands like Google Assistant.
 ~\cites{neural:amazon}{neural:google-assistant}
 
 Inside AI one of the domains that has greatly increased during the last years is 
-\gls{ML}. The main advantage is that it can solely learn from examples without 
-explicit teaching, and thus reducing the human interaction during the learning process. One of the 
-most used types is \emph{deep neural networks} and these have demonstrated impressive performance 
-against computer vision and Natural Language Processing tasks like the classification of 
-digits from the MNIST data set.
+\gls{ML}. The main advantage is that it can solely learn from examples without explicit 
+teaching, and thus reducing the human interaction during the learning process. One of the 
+most used types is \emph{deep neural networks} and these have demonstrated impressive 
+performance against computer vision and Natural Language Processing tasks like the 
+classification of digits from the MNIST data set.
 ~\cites{neural:mnist}{neural:empirical-evaluation-deep-architectures}
 
 Regarding the medical field, recent deep learning algorithms, specially \gls{CNN} 
-have started to push the boundaries of precision medicine. 
-Traditionally, medical predictions have been based on a few clinical parameters with poor accuracy.
-However, other data types are available to improve such predictions. In this context, medical
-images generated from \gls{MRI}, \gls{PET} or \gls{CT} scans are vastly underused 
-due to the 
-inability of radiologists to quantitatively analyze this complex data.
+have started to push the boundaries of precision medicine. Traditionally, medical 
+predictions have been based on a few clinical parameters with poor accuracy.
+However, other data types are available to improve such predictions. In this context, 
+medical images generated from \gls{MRI}, \gls{PET} or \gls{CT} scans are vastly 
+underused due to the inability of radiologists to quantitatively analyze these 
+complex data.
 
-Different methods have appeared to analyze these images for tasks such as
-image classification, object detection, segmentation and registration among other tasks. This
-approach started in the late 1990s and has slowly shifted from systems that are completely designed
-by humans to systems that are trained by computers using example data. 
+Different methods have appeared to analyze these images for tasks such as image 
+classification, object detection, segmentation and registration among other tasks. This
+approach started in the late 1990s and has slowly shifted from systems that are 
+completely designed by humans to systems that are trained by computers using example data. 
 ~\cite{medical:survey-deep-learning}
 
 Professor Benjamin Haibe-Kains has participated in one of the seminal studies in 
-\emph{Radiomics} (Nat Comm). \emph{Radiomics} is a new field,
-relying on pre-defined, hand-engineered features computed from medical images, to better 
-characterize tumours and predict survival outcome. Although promising, radiomics suffers from 
-several limitations. The most important one is that it relies on hand-engineered features,
+\emph{Radiomics} (Nat Comm). \emph{Radiomics} is a new field, relying on pre-defined, 
+hand-engineered features computed from medical images, to better characterize tumours 
+and predict survival outcome. Although promising, radiomics suffers from several 
+limitations. The most important one is that it relies on hand-engineered features, 
 these features are not guaranteed to be the most discriminant ones. Deep learning methods
 are end-to-end and, for a given task, they drive features from the data.
 ~\cite{medical:radiomics-ml-classifiers}
+
+Most cancers are currently treated with a one-size-fits-all approach that invariably leads
+to over/under-treatment of some patients. Refined prognostic models are needed to assist
+clinicians in delivering the appropriate treatements
+% TODO: Finish this part
 
 \sssecc{Survival Analysis}
 \label{sec:survival}
