@@ -333,8 +333,9 @@ An example of convolutional operation can be seen in \autoref{fig:conv-operation
 operator is denoted by \( * \). If the matrix input size for one dimension is \( n_{\text{prev}} \)
 the output size will be defined by:
 \begin{align*}
-  \frac{n_{\text{prev}} + p - f}{s} + 1
+  n_{\text{next}} = \left\lfloor\frac{n_{\text{prev}} + p - f}{s}\right\rfloor + 1
 \end{align*}
+% TODO: Finish this section
 
 \begin{figure}
   \centering
@@ -346,12 +347,14 @@ the output size will be defined by:
   }
 \end{figure}
 
-By replacing the matrix multiplication, with the convolution operation over the previous layer 
-activations a convolutional neural network is created. 
+To form the convolutional layer, the matrix multiplication with the previous layer's activation vector 
+gets replaced by the convolution operation over the activation matrix. In this case the activations are 
+a matrix too to be able to do a 2D convolution. If a 3D convolution is going to be used, 3-dimensional 
+tensors are required instead.
 \begin{align*}
   \bm{z}^{[l]} &= \bm{W}^{[l]} \cdot \bm{a}^{[l - 1]} + \bm{b}^{[l - 1]} \\
   &\downarrow \text{becomes} \\
-  \bm{z}^{[l]} &= \bm{a}^{[l - 1]} * \bm{W}^{[l]} + \bm{b}^{[l - 1]}
+  \bm{Z}^{[l]} &= \bm{A}^{[l - 1]} * \bm{W}^{[l]} + \bm{B}^{[l - 1]}
 \end{align*}
 
 For this to work the number of dimensions of \( \bm{W}^{[l]} \) and \( \bm{a}^{[l - 1]} \)
