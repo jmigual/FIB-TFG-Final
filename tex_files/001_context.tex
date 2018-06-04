@@ -5,16 +5,16 @@
 
 Nowadays one of the most extensive uses of computing is artificial intelligence. A few 
 examples are Amazon purchase recommendations, based on previous purchases, or help users
-to interact with their phone by only using voice commands like Google Assistant. 
-~\cites{neural:amazon}{neural:google-assistant}
+to interact with their phone by only using voice commands like Google Assistant 
+~\cite{neural:amazon, neural:google-assistant}.
 
 Inside AI one of the domains that has greatly increased during the last years is 
 \gls{ML}. The main advantage is that it can solely learn from examples without explicit 
 teaching, and thus reducing the human interaction during the learning process. One of the 
 most used types is \emph{deep neural networks} and these have demonstrated impressive 
 performance against computer vision and Natural Language Processing tasks like the 
-classification of digits from the MNIST data set.
-~\cites{neural:mnist}{neural:empirical-evaluation-deep-architectures}
+classification of digits from the MNIST data set
+~\cite{neural:mnist, neural:empirical-evaluation-deep-architectures}.
 
 Regarding the medical field, recent deep learning algorithms, specially \gls{CNN} 
 have started to push the boundaries of precision medicine. Traditionally, medical 
@@ -27,22 +27,52 @@ complex data.
 Different methods have appeared to analyze these images for tasks such as image 
 classification, object detection, segmentation and registration among other tasks. This
 approach started in the late 1990s and has slowly shifted from systems that are 
-completely designed by humans to systems that are trained by computers using example data. 
-~\cite{medical:survey-deep-learning}
+completely designed by humans to systems that are trained by computers using example data
+~\cite{medical:survey-deep-learning}.
 
 Professor Benjamin Haibe-Kains has participated in one of the seminal studies in 
 \emph{Radiomics} (Nat Comm). \emph{Radiomics} is a new field, relying on pre-defined, 
 hand-engineered features computed from medical images, to better characterize tumours 
-and predict survival outcome. Although promising, radiomics suffers from several 
+and predict survival outcome.
+
+High-dose radiotherapy with or without chemotherapy is the standard of care for many
+locally advanced cancers, \emph{oropharynx cancer}. While effective in some patients,
+these treatments are associated with significant risks of early and late toxicities
+that impair patients' treatment adherence and long-term quality of life. Furthermore, 
+most cancers are currently treated with a one-size-fits-all approach that invariably leads
+to over-treatment of som patient and under-treatment of others. 
+The clinical implication of this is that some patients are cured by the standard 
+one-size-fits-all treatments currently employed while others are not 
+~\cite{medical:personalized}. Refined prognostic 
+models are needed to assist clinicians in delivering the appropriate level of care.
+
+Radiomics is an emerging field of research that can non-invasively quantify tumour 
+phenotypes, based on mining and extracting a large number of quantitative imaging 
+features ~\cite{medical:radiomics:data, medical:radiomics:extract-information}.
+It is aimed at using computational techniques to extract
+the most informative features from radiological images routinely used in clinical settings.
+Recent studies have demonstrated the effectiveness of radiomic features as biomarkers 
+associated with survival of patients with lung and head and neck cancers. Conventional
+radiomic pipelines comprise four main components:
+\begin{itemize}
+  \item Image acquisition
+  \item Extracting hand-engineered features
+  \item Assessing their robustness
+  \item Building predictive models based on the most relevant features
+\end{itemize}
+
+Different machine learning approaches, such as \glspl{NN}, have been applied for the last 
+step of the pipeline. However, recent advances have allowed for more complex (deeper) 
+\glspl{NN}, and have led to unique feature learning properties with unprecedented performance
+for image classification. Contrary to the conventional radiomic models, deep networks
+eliminate the need for hand-engineered features, which may not necessarily be the most
+relevant set of features for prognostication of cancer patients.
+
+Although promising, radiomics suffers from several 
 limitations. The most important one is that it relies on hand-engineered features, 
 these features are not guaranteed to be the most discriminant ones. Deep learning methods
-are end-to-end and, for a given task, they drive features from the data.
-~\cite{medical:radiomics-ml-classifiers}
-
-Most cancers are currently treated with a one-size-fits-all approach that invariably leads
-to over/under-treatment of some patients. Refined prognostic models are needed to assist
-clinicians in delivering the appropriate treatements
-% TODO: Finish this part
+are end-to-end and, for a given task, they drive features from the data
+~\cite{medical:radiomics-ml-classifiers}.
 
 \sssecc{Survival Analysis}
 \label{sec:survival}
@@ -389,7 +419,7 @@ almost all of them use \gls{MRI}, \gls{PET} or \gls{CT} scans and the clinical d
 The typical one, is to extract hand-crafted radiomic features using own methods or using 
 libraries such as \emph{PyRadiomics}. This 
 hand-crafted features are usually based in aspects like tumour shape, intensity, volume or texture.
-~\cites{medical:tumour-radiomics}{medical:py-radiomics}{medical:computational-radiomics}
+~\cite{medical:tumour-radiomics, medical:py-radiomics, medical:computational-radiomics}
 
 An alternative approach, is to use a deep learning-based model for prediction and for feature
 extraction. In this case, features are extracted too but a \gls{CNN} 
@@ -403,7 +433,7 @@ sets for deep network training. Usually, there are two possible strategies:
 
 Both strategies are popular and have been widely applied. A network that allows this type
 of retrain is GoogLeNet Inception v3
-~\cites{neural:goog-le-net}{neural:retrain}{neural:inception-retrain}.
+~\cite{neural:goog-le-net, neural:retrain, neural:inception-retrain}.
 However, there's the added problem that medical imaging data are usually 3D images but, 
 when working with pre-trained \gls{CNN}, only 2D images can be used, because there are still no 
 pre-trained networks on 3D images. Although this method seems promising, still requires 
@@ -414,7 +444,7 @@ An implemented survival prediction model is \emph{DeepSurv} which is based on su
 and uses the \gls{CPH} model for an individual's survival given the \gls{baseline}
 \( x \). It's an Open Source Python module that applies recent deep learning techniques 
 to a Cox model.
-~\cites{medical:deep-surv}{medical:cox}
+~\cite{medical:deep-surv, medical:cox}
 
 In the 3D imaging field, there has been some work too. 3D \glspl{CNN} have
 been used for brain lesion segmentation on multi-channel \gls{MRI} scans. In this case a 
@@ -423,7 +453,7 @@ state-of-the art, the model structure can be seen in \autoref{fig:deepmedic} and
 can be found on GitHub. 
 One of the biggest handicaps found was the computational intensity of
 processing 3D medical scans, since they usually need a lot of memory and GPU time.
-~\cites{neural:deepmedic}{neural:3d-cnn-crf}
+~\cite{neural:deepmedic, neural:3d-cnn-crf}
 
 \begin{figure}
   \centering
@@ -493,7 +523,7 @@ and Computational Genomics Laboratory. He is the main responsible for guiding, g
 advice and, in general, helping the developer.
 His action is key to determine possible errors in the project, both in its proposal and 
 execution.
-~\cites{bhklab}.
+~\cite{bhklab}.
 
 \sssecc{Beneficiaries}
 The project beneficiaries will depend on its outcome. If a more efficient model is found, the
@@ -520,7 +550,7 @@ example of survival prediction is the \emph{DeepSurv} python package, so being a
 up, to run and to understand the package will give me a bit more of background in the problem.
 However, \emph{DeepSurv} uses a \gls{CPH} model but in this case an attempt will be made to use
 a different model, since a \gls{CPH} model is only valid under certain circumstances.
-~\cites{medical:deep-surv-github}{medical:cox}
+~\cite{medical:deep-surv-github, medical:cox}
 
 Afterwards, a deep learning model will be created, starting from zero but trying to use some
 ideas from other completed projects. The model, unlike \emph{DeepSurv}, will not be using
@@ -577,7 +607,7 @@ prepared to allow multiple contributors in the same project. Moreover,
 Git projects can be stored in a server, GitHub it's an online platform that allows
 remote Git repositories. GitHub has integrated an issue system, a milestone system
 and it's really integrated with Git's contributor system.
-~\cites{tool:git}{tool:github}
+~\cite{tool:git, tool:github}
 
 \sssecc{Bugs}
 
