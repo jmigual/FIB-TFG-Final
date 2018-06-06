@@ -272,8 +272,9 @@ is 0.613 and 0.623 for the test pairs.
     \hline
   \end{tabular}
 
-  \caption[Results Volume Only Model 4CV]{
+  \caption[Volume Only 4-CV results]{
     Results for volume only model using 4-CV \label{tab:volume-4CV}
+    \todo{Update this results}
   }
 \end{table}
 
@@ -317,9 +318,8 @@ this task has been scheduled for completion in a later step of the project. The 
 rescheduling is due to the long training times. Once a more basic model is working and
 with some results, this task will be finished.
 
-This has been developed for two weeks for now and it will take at least one more to complete.
-Since this step has taken less time than planned it has made some room to add other required
-steps that were not planned initially.
+This task took two weeks to complete and no further development will be held with this task
+since the next efforts are centered around a model using only the radiomic features.
 
 \begin{figure}
   \centering
@@ -327,25 +327,55 @@ steps that were not planned initially.
   \caption{Shallow siamese sister's network illustration \label{fig:shallow-implement}}
 \end{figure}
 
+\sssecc{Results}
+
+Results obtained with 4-\gls{CV} have been obtained with the Shallow Siamese model.
+They are not really significant since they do not improve the current state-of-the-art 
+results. Moreover, they are worse than the previous results so with this approach there 
+has not been any improvements at all.
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c||c|c|c||c|c|c|}
+    \cline{2-7}
+    \multicolumn{1}{c|}{} & \multicolumn{3}{|c||}{\textbf{Pairs}} & 
+    \multicolumn{3}{c|}{\textbf{Concordance Index}} \\
+    \hline
+    \textbf{Fold} & \textbf{Mixed} & \textbf{Train} & \textbf{Test} & 
+    \textbf{Mixed} & \textbf{Train} & \textbf{Test} \\
+    \hhline{=======}
+    0 & 17.664 & 50.720 & 5.708 & 0,758 & 0,9 & 0,638 \\
+    1 & 17.653 & 51.076 & 5.610 & 0,794 & 0,911 & 0,604 \\
+    2 & 17.653 & 51.303 & 5.539 & 0,738 & 0,898 & 0,679 \\
+    3 & 17.653 & 50.794 & 5.692 & 0,767 & 0,898 & 0,618 \\
+    \hhline{=======}
+    \textbf{Total} & 70,623 & 203,893 & 22,549 & 0.764 & 0.902 & 0.635 \\
+    \hline
+  \end{tabular}
+
+  \caption[Shallow 4-CV results]{
+    Results for shallow model using 4-CV \label{tab:results-shallow-4CV}
+  }
+\end{table}
 
 \ssecc{Build scalar only siamese network}
 \label{sec:scalar-only}
 
 To speed up the testing process, a siamese network that only used scalar features 
 was built. With this approach, the training time was reduced from around 5 hours 
-to 1 minute to train the model. 
+to 1 minute to train a single model. 
 
-To improve the performance Dropout \cite{neural:dropout} was used, by using dropout some 
-of the model activations are zeroed and then scaled according to the dropout probability. 
-This way, the networks' neurons do not have all the information and thus they must generalize. 
-Dropout is used as a way of regularization. 
+To improve the network's performance Dropout \cite{neural:dropout} was used, by using 
+dropout some of the model activations are zeroed and then scaled according to the 
+dropout probability. This way, the networks' neurons do not have all the information and 
+thus they must generalize. Dropout is used as a way of regularization. 
 
 Moreover, since this model inherits from the basic model, defined in \autoref{sec:basic-siamese}, 
 regularization is applied too by adding the l2 norm of the weights. The loss and
 cost functions are the same too.
 
-This step took one week to complete although some fixes have been applied later during the
-development of other models.
+To complete this step it took one week but it took two more weeks to validate the results 
+and to fix some bugs.
 
 \begin{figure}
   \centering
@@ -400,7 +430,9 @@ The final \gls{CI} with \gls{LOOCV} is 0.746 while the median \gls{CI} is 0.832.
     \hline
   \end{tabular}
 
-  \caption{Results for scalar only model using 4-CV \label{tab:results-scalar-4CV}}
+  \caption[Scalar Only 4-CV results]{
+    Results for scalar only model using 4-CV \label{tab:results-scalar-4CV}
+  }
 \end{table}
 
 \begin{figure}
@@ -417,6 +449,20 @@ The final \gls{CI} with \gls{LOOCV} is 0.746 while the median \gls{CI} is 0.832.
 \end{figure}
 
 \ssecc{Build deep siamese network}
+
+Some work has been done in this task although it's far for complete since all the efforts 
+were centered around the model using radiomic features. The deep siamese network design
+was inspired by Inception v4 design which did use a Residual Network to improve training
+times. 
+
+\todo{Finish this section}
+
+\begin{figure}
+  \centering
+  \missingfigure[figwidth=6cm]{Deep Siamese blocks}
+\end{figure}
+
+To do so, different types of blocks were used to create the network. 
 
 This step is yet to be completed. Once the previous siamese models have been finished this
 one can start as an improvement of the previous ones.
