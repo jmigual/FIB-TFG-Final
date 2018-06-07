@@ -1,20 +1,21 @@
 
-\begin{tikzpicture}[every node/.style={scale=.8}]
+\begin{tikzpicture}[every node/.style={scale=.8}, node distance = 1.5 em]
 
   \tikzstyle{module}=[rounded corners, draw, align=center]
   \tikzstyle{FC}=[module, fill=green!30]
   \tikzstyle{conv}=[module, fill=orange!30]
   \tikzstyle{io}=[module, fill=purple!30]
+  \tikzstyle{tensor}=[font=\footnotesize\selectfont]
   
   
   \node [io] (image) {Image};
 
-  \node [conv, below left = of image] (A-C) {
+  \node [conv, below left = 0.5 of image] (A-C) {
     Convolution \\
     \( 25 @ 3 \times 3 \times 3 \) \\
     Stride = 2
   };
-  \node [conv, below right = of image] (B-P) {
+  \node [conv, below right = 0.5 of image] (B-P) {
     Max  Pooling \\
     \( 1 @ 3 \times 3 \times 3 \) \\
     Stride = 2
@@ -24,15 +25,19 @@
     \( 25 @ 1 \times 1 \times 1 \) \\
     Same padding
   };
-  \node [FC, below = 3 of B-C] (con) {Concatenate};
+
+  \node [below = of A-C] (aux-1) {};
+  \node (aux-2) at ($(aux-1)!.5!(B-C)$) {};
+
+  \node [FC, below = 1.5 of aux-2] (con) {Concatenate};
   \node [io, below = of con] (out) {Stem out};
 
-  \draw [-latex] (image) -| (A-C) node[midway, above] {\( 64 \times 64 \times 64 \times 1 \)};
-  \draw [-latex] (image) -| (B-P) node[midway, above] {\( 64 \times 64 \times 64 \times 1 \)};
-  \draw [-latex] (B-P) -- (B-C) node[midway, left] {\( 31 \times 31 \times 31 \times 1 \)};
-  \draw [-latex] (B-C) |- (con) node[near start, left] {\( 31 \times 31 \times 31 \times 25 \)};
-  \draw [-latex] (A-C) |- (con) node[near start, right] {\( 31 \times 31 \times 31 \times 25 \)};
-  \draw [-latex] (con) -- (out) node[midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -| (A-C) node[tensor, midway, above] {\( 64 \times 64 \times 64 \times 1 \)};
+  \draw [-latex] (image) -| (B-P) node[tensor, midway, above] {\( 64 \times 64 \times 64 \times 1 \)};
+  \draw [-latex] (B-P) -- (B-C) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 1 \)};
+  \draw [-latex] (B-C) |- (con) node[tensor, near start, left] {\( 31 \times 31 \times 31 \times 25 \)};
+  \draw [-latex] (A-C) |- (con) node[tensor, near start, right] {\( 31 \times 31 \times 31 \times 25 \)};
+  \draw [-latex] (con) -- (out) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
 
 \end{tikzpicture}
 

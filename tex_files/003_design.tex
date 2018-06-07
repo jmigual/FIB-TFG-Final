@@ -460,7 +460,20 @@ times.
 \begin{figure}
   \centering
   \input{drawings/residual_general.tikz.tex}
-  \caption{Residual siamese network general illustration \label{fig:residual-general}}
+\end{figure}
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \scalebox{.8}{\input{drawings/residual_stem.tikz.tex}}
+    \caption{Residual network stem block}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.59\textwidth}
+    \centering
+    \scalebox{.8}{\input{drawings/residual_block_a.tikz.tex}}
+    \caption{Residual network convolutional block A}
+  \end{subfigure}
 \end{figure}
 
 To do so, different types of blocks were used to create the network. 
@@ -489,9 +502,8 @@ It can take at least one more week to complete this step.
     \hline
   \end{tabular}
 
-  \caption[Scalar Only 4-CV results]{
-    Results for scalar only model using 4-CV \label{tab:results-scalar-4CV}
-    \todo[inline]{Update these results}
+  \caption[Residual 4-CV results]{
+    Results for residual model using 4-CV \label{tab:results-residual-4CV}
   }
 \end{table}
 
