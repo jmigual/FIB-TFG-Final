@@ -1,0 +1,50 @@
+
+\begin{tikzpicture}[every node/.style={scale=.8}]
+
+  \tikzstyle{module}=[rounded corners, draw, align=center]
+  \tikzstyle{FC}=[module, fill=green!30]
+  \tikzstyle{conv}=[module, fill=orange!30]
+  \tikzstyle{io}=[module, fill=purple!30]
+  
+  
+  \node [io] (image) {Image};
+
+  \node [conv, below = of image] (S) {Stem bloc};
+  \node [conv, below = of S] (BA) {2 x Block A 1};
+  \node [conv, below = of BA] (R-A) {Reduction A};
+  \node [conv, below = of R-A] (BB) {2 x Block B};
+  \node [conv, below = of BB] (R-B) {Reduction B};
+  \node [conv, below = of R-B] (P) {
+    Average pooling \\
+    \( 350 @ 6 \times 6 \times 6 \)
+  };
+
+  \node [right = 5 of image] (aux) {};
+  \node [io, right = of aux] (scalar) {Scalar};
+
+  \node [FC, below = of aux] (con) {Concatenate + \\ flatten};
+  \node [left = of con] (aux-2) {};
+  \node [FC, below = of con] (FC-1) {FC \\ 800 units};
+  \node [FC, below = of FC-1] (FC-2) {FC \\ 100 units};
+  \node [FC, below = of FC-2] (FC-3) {FC \\ 10 units};
+
+  \node [io, below = of FC-3] (out) {Sister out};
+
+  \draw [-latex] (image) -- (S) node[midway, right] {\( 64 \times 64 \times 64 \times 1 \)};
+  \draw [-latex] (S) -- (BA) node[midway, right] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (BA) -- (R-A) node[midway, right] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (R-A) -- (BB) node[midway, right] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (BB) -- (R-B) node[midway, right] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (R-B) -- (P) node[midway, right] {\( 7 \times 7 \times 7 \times 350 \)};
+
+  \draw (P) -| (aux-2.center)  node[pos=.3, below] {\( 2 \times 2 \times 2 \times 350 \)};
+  \draw [-latex] (aux-2.center) |- (con);
+  \draw [-latex] (scalar) |- (con) node[pos=.15, left] {\( 725 \)};
+  
+  \draw [-latex] (con) -- (FC-1) node[midway, right] {\( 3.525 \)};
+  \draw [-latex] (FC-1) -- (FC-2) node[midway, right] {\( 800 \)};
+  \draw [-latex] (FC-2) -- (FC-3) node[midway, right] {\( 100 \)};
+  \draw [-latex] (FC-3) -- (out) node[midway, right] {\( 10 \)};
+\end{tikzpicture}
+
+

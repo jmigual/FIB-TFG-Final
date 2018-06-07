@@ -1,0 +1,73 @@
+
+\begin{tikzpicture}[every node/.style={scale=.8}]
+
+  \tikzstyle{module}=[rounded corners, draw, align=center]
+  \tikzstyle{FC}=[module, fill=green!30]
+  \tikzstyle{conv}=[module, fill=orange!30]
+  \tikzstyle{io}=[module, fill=purple!30]
+  
+  
+  \node [io] (image) {Input};
+
+  \node [conv, below = of image] (B-C-0) {
+    Convolution \\
+    \( 32 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+  \node [conv, below = of B-C-0] (B-C-1) {
+    Convolution \\
+    \( 1 @ 3 \times 3 \times 3 \) \\
+    Same padding
+  };
+
+  \node [conv, left = of B-C-0] (A-C) {
+    Convolution \\
+    \( 32 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+  \node [conv, right = of B-C-0] (C-C-0) {
+    Convolution \\
+    \( 32 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+  \foreach \x [remember=\x as \lastx (initially 0)] in {1,2} {
+    \node [conv, below = of C-C-\lastx] (C-C-\x) {
+      Convolution \\
+      \( 32 @ 3 \times 3 \times 3 \) \\
+      Same padding
+    };
+  }
+
+  \node [FC, below = 3 of B-C-1] (con) {Concatenate};
+  
+  \node [conv, below = of con] (F-C) {
+    Convolution \\
+    \( 50 @ 1 \times 1 \times 1 \) \\
+    Same padding
+    };
+  \node [circle, FC, below = of F-C] (sum) {\LARGE +};
+  \node [io, below = of sum] (out) {Block A out};
+
+  \node [right = of C-C-0] (aux) {};
+
+  \draw [-latex] (image) -| (A-C) node[midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -- (B-C-0) node[midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -| (C-C-0) node[midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
+
+  \draw [-latex] (B-C-0) -- (B-C-1) node[midway, left] {\( 31 \times 31 \times 31 \times 32 \)};
+  \draw [-latex] (C-C-0) -- (C-C-1) node[midway, left] {\( 31 \times 31 \times 31 \times 32 \)};
+  \draw [-latex] (C-C-1) -- (C-C-2) node[midway, left] {\( 31 \times 31 \times 31 \times 32 \)};
+
+  \draw [-latex] (A-C) |- (con) node[near start, right] {\( 31 \times 31 \times 31 \times 32 \)};
+  \draw [-latex] (B-C-1) -- (con) node[midway, left] {\( 31 \times 31 \times 31 \times 32 \)};
+  \draw [-latex] (C-C-2) |- (con) node[near start, left] {\( 31 \times 31 \times 31 \times 32 \)};
+
+  \draw [-latex] (con) -- (F-C) node[midway, left] {\( 31 \times 31 \times 31 \times 96 \)};
+  \draw [-latex] (F-C) -- (sum) node[midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw (image) -| (aux.center);
+  \draw [-latex] (aux.center) |- (sum) node[near end, above] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (sum) -- (out) node[midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
+
+\end{tikzpicture}
+
+

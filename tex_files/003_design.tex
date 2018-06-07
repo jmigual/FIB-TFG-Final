@@ -263,18 +263,18 @@ is 0.613 and 0.623 for the test pairs.
     \textbf{Fold} & \textbf{Mixed} & \textbf{Train} & \textbf{Test} 
     & \textbf{Mixed} & \textbf{Train} & \textbf{Test} \\
     \hhline{=======}
-    0 & 17.664 & 50.720 & 5.708 & 0,622 & 0,614 & 0,653 \\
-    1 & 17.653 & 51.076 & 5.610 & 0,619 & 0,629 & 0,604 \\
-    2 & 17.653 & 51.303 & 5.539 & 0,609 & 0,607 & 0,671 \\
-    3 & 17.653 & 50.794 & 5.692 & 0,613 & 0,644 & 0,563 \\
+    0 & 16.359 & 46.804 & 5.330 & 0,627 & 0,634 & 0,639 \\
+    1 & 16.359 & 46.957 & 5.278 & 0,629 & 0,635 & 0,63 \\
+    2 & 16.348 & 47.577 & 5.084 & 0,636 & 0,627 & 0,661 \\
+    3 & 16.348 & 47.274 & 5.176 & 0,618 & 0,644 & 0,6 \\
     \hhline{=======}
-    \textbf{Total} & 70,623 & 203,893 & 22,549 & 0.616 & 0.624 & 0.623 \\
+    \textbf{Total} & 65,414 & 188,612 & 20,868 & 0.627 & 0.635 & 0.632 \\
     \hline
   \end{tabular}
 
   \caption[Volume Only 4-CV results]{
     Results for volume only model using 4-CV \label{tab:volume-4CV}
-    \todo{Update this results}
+    \todo[inline]{Update these results}
   }
 \end{table}
 
@@ -282,7 +282,7 @@ The results obtained with \gls{LOOCV} are shown in \autoref{fig:results-volume-L
 To train this model one element has been removed from the dataset and the model has 
 been trained with the rest of the elements (all minus one). It shows the \gls{CI} of each
 element when comparing it with the training set, so only the mixed pairs \gls{CI} are shown.
-The final \gls{CI} is 0.616 and the median \gls{CI} is 0.611.
+The final \gls{CI} is 0.627 and the median \gls{CI} is 0.618.
 
 These results are very similar from the ones previously obtained of 0.628 as explained in 
 \autoref{sec:state-of-the-art} (state-of-the art).
@@ -294,7 +294,8 @@ These results are very similar from the ones previously obtained of 0.628 as exp
     Volume only model results using \acrshort{LOOCV} \label{fig:results-volume-LOOCV}
     
     Histogram showing the distribution of all the \acrshort{LOOCV} elements' \acrshort{CI}
-    when using mixed pairs to obtain the \acrshort{CI}.
+    when using mixed pairs to obtain the \acrshort{CI}. Final \gls{CI} is 0.627, median
+    \gls{CI} is 0.618.
   }
 \end{figure}
 
@@ -408,8 +409,8 @@ indicator is the mixed \gls{CI}.
 The results using \gls{LOOCV} can be seen represented in \autoref{fig:results-scalar-LOOCV}. 
 In this case, only the mixed pairs have been compared to create the histogram.
 
-The final \gls{CI} with \gls{LOOCV} is 0.746 while the median \gls{CI} is 0.832. The final 
-\gls{CI} using \gls{LOOCV} is very similar to the one obtained using 4-CV (0.746 vs 0.764).
+The final \gls{CI} with \gls{LOOCV} is 0.771 while the median \gls{CI} is 0.862. The final 
+\gls{CI} using \gls{LOOCV} is very similar to the one obtained using 4-CV (0.771 vs 0.764).
 
 \begin{table}
   \centering
@@ -421,12 +422,12 @@ The final \gls{CI} with \gls{LOOCV} is 0.746 while the median \gls{CI} is 0.832.
     \textbf{Fold} & \textbf{Mixed} & \textbf{Train} & \textbf{Test} & 
     \textbf{Mixed} & \textbf{Train} & \textbf{Test} \\
     \hhline{=======}
-    0 & 17.664 & 50.720 & 5.708 & 0,758 & 0,9 & 0,638 \\
-    1 & 17.653 & 51.076 & 5.610 & 0,794 & 0,911 & 0,604 \\
-    2 & 17.653 & 51.303 & 5.539 & 0,738 & 0,898 & 0,679 \\
-    3 & 17.653 & 50.794 & 5.692 & 0,767 & 0,898 & 0,618 \\
+    0 & 16.359 & 46.804 & 5.330 & 0,728 & 0,915 & 0,543 \\
+    1 & 16.359 & 46.957 & 5.278 & 0,809 & 0,927 & 0,64 \\
+    2 & 16.348 & 47.577 & 5.084 & 0,751 & 0,91 & 0,675 \\
+    3 & 16.348 & 47.274 & 5.176 & 0,766 & 0,919 & 0,624 \\
     \hhline{=======}
-    \textbf{Total} & 70,623 & 203,893 & 22,549 & 0.764 & 0.902 & 0.635 \\
+    \textbf{Total} & 65,414 & 188,612 & 20,868 & 0.764 & 0.918 & 0.620 \\
     \hline
   \end{tabular}
 
@@ -442,9 +443,8 @@ The final \gls{CI} with \gls{LOOCV} is 0.746 while the median \gls{CI} is 0.832.
     Scalar only model results using \acrshort{LOOCV} \label{fig:results-scalar-LOOCV}
     
     Histogram showing the distribution of all the \acrshort{LOOCV} elements' \acrshort{CI}
-    when using mixed pairs to obtain the \acrshort{CI}. 
-    In blue the distribution of all the \acrshort{LOOCV} elements. In orange only the uncensored
-    elements, which have more pairs to compare with.
+    when using mixed pairs to obtain the \acrshort{CI}. Final \gls{CI} is 0.771, median 
+    \gls{CI} is 0.862.
   }
 \end{figure}
 
@@ -459,7 +459,8 @@ times.
 
 \begin{figure}
   \centering
-  \missingfigure[figwidth=6cm]{Deep Siamese blocks}
+  \input{drawings/residual_general.tikz.tex}
+  \caption{Residual siamese network general illustration \label{fig:residual-general}}
 \end{figure}
 
 To do so, different types of blocks were used to create the network. 
@@ -469,6 +470,31 @@ one can start as an improvement of the previous ones.
 
 It can take at least one more week to complete this step.
 
+\begin{table}
+  \centering
+  \begin{tabular}{|c||c|c|c||c|c|c|}
+    \cline{2-7}
+    \multicolumn{1}{c|}{} & \multicolumn{3}{|c||}{\textbf{Pairs}} & 
+    \multicolumn{3}{c|}{\textbf{Concordance Index}} \\
+    \hline
+    \textbf{Fold} & \textbf{Mixed} & \textbf{Train} & \textbf{Test} & 
+    \textbf{Mixed} & \textbf{Train} & \textbf{Test} \\
+    \hhline{=======}
+    0 & 222.048 & 330.072 & 37.016 & 0,562 & 0,565 & 0,554 \\
+    1 & 220.704 & 331.832 & 36.600 & 0,59 & 0,61 & 0,567 \\
+    2 & 219.456 & 333.664 & 36.016 & 0,645 & 0,616 & 0,667 \\
+    3 & 222.304 & 329.584 & 37.248 & 0,559 & 0,579 & 0,536 \\
+    \hhline{=======}
+    \textbf{Total} & 884,512 & 1,325,152 & 146,880 & 0.589 & 0.592 & 0.58 \\
+    \hline
+  \end{tabular}
+
+  \caption[Scalar Only 4-CV results]{
+    Results for scalar only model using 4-CV \label{tab:results-scalar-4CV}
+    \todo[inline]{Update these results}
+  }
+\end{table}
+
 \ssecc{Predict patients survival}
 
 This step is yet to be completed. Once there is a working model that allows to compare two 
@@ -476,4 +502,12 @@ individuals to see which one lives more, the prediction of the survival time of 
 should be implemented.
 
 This step should take at most one week to complete.
+
+\ssecc{Write documentation}
+
+Since this project creates a software, some documentation for the software must be written.
+Moreover documenting the code is important to allow more people to work on the project.
+The project's documentation can be found at \url{https://jmigual.github.io/CNNSurv/}.
+
+This task has taken one week to complete.
 
