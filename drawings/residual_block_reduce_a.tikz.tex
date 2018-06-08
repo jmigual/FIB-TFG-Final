@@ -1,0 +1,59 @@
+
+\begin{tikzpicture}[every node/.style={scale=.8}, node distance = 0.7]
+
+  \tikzstyle{module}=[rounded corners, draw, align=center]
+  \tikzstyle{FC}=[module, fill=green!30]
+  \tikzstyle{conv}=[module, fill=orange!30]
+  \tikzstyle{pool}=[module, fill=cyan!30]
+  \tikzstyle{io}=[module, fill=purple!30]
+  \tikzstyle{tensor}=[font=\scriptsize\selectfont]
+  
+  
+  \node [io] (image) {Input};
+
+  \node [conv, below = 0.5 and 1 of image] (B-C-0) {
+    Convolution \\
+    \( 50 @ 3  \times 3 \times 3 \) \\
+    Same padding
+  };
+
+  \node [pool, left = of B-C-0] (A-P) {
+    Max Pooling \\
+    \( 32 @ 3 \times 3 \times 3 \) \\
+    Stride = 2
+  };
+  \node [conv, right = of B-C-0] (C-C-0) {
+    Convolution \\
+    \( 30 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+  \node [conv, below = of C-C-0] (C-C-1) {
+    Convolution \\
+    \( 30 @ 3 \times 3 \times 3 \) \\
+    Same padding
+  };
+  \node [conv, below = of C-C-1] (C-C-2) {
+    Convolution \\
+    \( 30 @ 3 \times 3 \times 3 \) \\
+    Stride = 2
+  };
+
+  \node [FC, below = 4 of B-C-0] (con) {Concatenate};
+  \node [io, below = of con] (out) {Reduction A out};
+
+  \draw [-latex] (image) -| (A-P) node[tensor, midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -- (B-C-0) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -| (C-C-0) node[tensor, midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
+
+  \draw [-latex] (C-C-0) -- (C-C-1) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 30 \)};
+  \draw [-latex] (C-C-1) -- (C-C-2) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 30 \)};
+
+  \draw [-latex] (A-P) |- (con) node[tensor, near start, right] {\( 15 \times 15 \times 15 \times 50 \)};
+  \draw [-latex] (B-C-0) -- (con) node[tensor, near start, left] {\( 15 \times 15 \times 15 \times 50 \)};
+  \draw [-latex] (C-C-2) |- (con) node[tensor, near start, left] {\( 15 \times 15 \times 15 \times 30 \)};
+
+  \draw [-latex] (con) -- (out) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 130 \)};
+
+\end{tikzpicture}
+
+

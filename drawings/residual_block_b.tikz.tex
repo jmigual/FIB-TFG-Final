@@ -1,0 +1,72 @@
+
+\begin{tikzpicture}[every node/.style={scale=.8}, node distance = 0.7]
+
+  \tikzstyle{module}=[rounded corners, draw, align=center]
+  \tikzstyle{FC}=[module, fill=green!30]
+  \tikzstyle{conv}=[module, fill=orange!30]
+  \tikzstyle{pool}=[module, fill=cyan!30]
+  \tikzstyle{io}=[module, fill=purple!30]
+  \tikzstyle{tensor}=[font=\scriptsize\selectfont]
+  
+  
+  \node [io] (image) {Input};
+
+  \node [conv, below = 0.5 of image] (B-C-0) {
+    Convolution \\
+    \( 50 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+  \node [conv, below = of B-C-0] (B-C-1) {
+    Convolution \\
+    \( 50 @ 1  \times 1 \times 7 \) \\
+    Same padding
+  };
+  \node [conv, below = of B-C-1] (B-C-2) {
+    Convolution \\
+    \( 50 @ 1  \times 7 \times 1 \) \\
+    Same padding
+  };
+  \node [conv, below = of B-C-2] (B-C-3) {
+    Convolution \\
+    \( 50 @ 7  \times 1 \times 1 \) \\
+    Same padding
+  };
+
+  \node [conv, left = of B-C-0] (A-C) {
+    Convolution \\
+    \( 50 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+
+  \node [right = of B-C-0] (aux-1) {};
+
+  \node [FC, below = of B-C-3] (con) {Concatenate};
+
+  \node [conv, below = of con] (F-C) {
+    Convolution \\
+    \( 130 @ 1 \times 1 \times 1 \) \\
+    Same padding
+    };
+  \node [circle, FC, below = of F-C] (sum) {\LARGE +};
+
+  \node [io, below = of sum] (out) {Reduction A out};
+
+  \draw [-latex] (image) -| (A-C) node[tensor, midway, above] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (image) -- (B-C-0) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 130 \)};
+  
+  \draw [-latex] (A-C) |- (con) node[tensor, midway, below] {\( 15 \times 15 \times 15 \times 50 \)};
+  \draw [-latex] (B-C-0) -- (B-C-1) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 50 \)};
+  \draw [-latex] (B-C-1) -- (B-C-2) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 50 \)};
+  \draw [-latex] (B-C-2) -- (B-C-3) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 50 \)};
+  \draw [-latex] (B-C-3) -- (con) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 50 \)};
+  
+  \draw (image) -| (aux-1.center);
+  \draw [-latex] (aux-1.center) |- (sum) node[tensor, midway, below] {\( 15 \times 15 \times 15 \times 130 \)};
+  
+  \draw [-latex] (F-C) -- (sum) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (con) -- (F-C) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 100 \)};
+  \draw [-latex] (sum) -- (out) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 130 \)};
+
+\end{tikzpicture}
+
+
