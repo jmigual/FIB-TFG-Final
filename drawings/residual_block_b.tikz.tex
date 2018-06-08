@@ -49,7 +49,7 @@
     };
   \node [circle, FC, below = of F-C] (sum) {\LARGE +};
 
-  \node [io, below = of sum] (out) {Reduction A out};
+  \node [io, below = of sum] (out) {Block B out};
 
   \draw [-latex] (image) -| (A-C) node[tensor, midway, above] {\( 15 \times 15 \times 15 \times 130 \)};
   \draw [-latex] (image) -- (B-C-0) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 130 \)};

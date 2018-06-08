@@ -38,7 +38,7 @@
     Stride = 2
   };
 
-  \node [FC, below = 4 of B-C-0] (con) {Concatenate};
+  \node [FC, below = 5 of B-C-0] (con) {Concatenate};
   \node [io, below = of con] (out) {Reduction A out};
 
   \draw [-latex] (image) -| (A-P) node[tensor, midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
