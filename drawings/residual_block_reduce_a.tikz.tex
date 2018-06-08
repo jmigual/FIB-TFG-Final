@@ -43,9 +43,9 @@
   \node [FC, below = of aux-1] (con) {Concatenate};
   \node [io, below = of con] (out) {Reduction A out};
 
-  \draw [-latex] (image) -| (A) node[tensor, midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -| (A) node[tensor, near start, above] {\( 31 \times 31 \times 31 \times 50 \)};
   \draw [-latex] (image) -- (B-0) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 50 \)};
-  \draw [-latex] (image) -| (C-0) node[tensor, midway, above] {\( 31 \times 31 \times 31 \times 50 \)};
+  \draw [-latex] (image) -| (C-0) node[tensor, near start, above] {\( 31 \times 31 \times 31 \times 50 \)};
 
   \draw [-latex] (C-0) -- (C-1) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 30 \)};
   \draw [-latex] (C-1) -- (C-2) node[tensor, midway, left] {\( 31 \times 31 \times 31 \times 30 \)};

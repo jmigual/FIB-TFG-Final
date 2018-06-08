@@ -51,7 +51,7 @@
 
   \node [io, below = of sum] (out) {Block B out};
 
-  \draw [-latex] (image) -| (A) node[tensor, midway, above] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (image) -| (A) node[tensor, near start, above] {\( 15 \times 15 \times 15 \times 130 \)};
   \draw [-latex] (image) -- (B-0) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 130 \)};
   
   \draw [-latex] (A) |- (con) node[tensor, midway, below] {\( 15 \times 15 \times 15 \times 50 \)};
