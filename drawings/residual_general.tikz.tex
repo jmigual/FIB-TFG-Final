@@ -11,10 +11,10 @@
   
   \node [io] (image) {Image};
 
-  \node [conv, below = of image] (S) {Stem bloc};
-  \node [conv, below = of S] (BA) {2 x Block A 1};
+  \node [conv, below = of image] (S) {Stem};
+  \node [conv, below = of S] (BA) {2 x aA};
   \node [conv, below = of BA] (R-A) {Reduction A};
-  \node [conv, below = of R-A] (BB) {2 x Block B};
+  \node [conv, below = of R-A] (BB) {2 x B};
   \node [conv, below = of BB] (R-B) {Reduction B};
   \node [pool, below = of R-B] (P) {
     Average pooling \\

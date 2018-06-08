@@ -250,7 +250,7 @@ including the time to test and obtain the results.
 \sssecc{Results}
 
 The results with this model have been obtained using both 4-CV and \gls{LOOCV}.
-As seen in \autoref{tab:volume-4CV}, when using 4-CV. The final \gls{CI} with mixed pairs
+As seen in \autoref{tab:results-volume-4CV}, when using 4-CV. The final \gls{CI} with mixed pairs
 is 0.613 and 0.623 for the test pairs.
 
 \begin{table}
@@ -273,7 +273,7 @@ is 0.613 and 0.623 for the test pairs.
   \end{tabular}
 
   \caption[Volume Only 4-CV results]{
-    Results for volume only model using 4-CV \label{tab:volume-4CV}
+    Results for volume only model using 4-CV \label{tab:results-volume-4CV}
   }
 \end{table}
 
@@ -329,10 +329,23 @@ since the next efforts are centered around a model using only the radiomic featu
 
 \sssecc{Results}
 
-Results obtained with 4-\gls{CV} have been obtained with the Shallow Siamese model.
-They are not really significant since they do not improve the current state-of-the-art 
-results. Moreover, they are worse than the previous results so with this approach there 
-has not been any improvements at all.
+The results have been obtained using 4-\gls{CV}. The training parameters where a learning rate
+of 0.001, 10 epochs and a batch size of 40. A bigger batch size could not be used because
+the model was using a lot of memory. By having a small batch size the number of train 
+iterations was of 2.180. The 4-\gls{CV} results can be seen at \autoref{tab:results-shallow-4CV}.
+
+It can be seen that the number of pairs is not the same as in \autoref{tab:results-volume-4CV} 
+from the volume model. This is caused by data augmentation. Since
+data augmentation is used, there are four images for each patient so the number of pairs
+increases too.
+
+The results show a really poor performance, even poorer than random. So, these results
+do not improve the current state-of-the-art and are worse than the results that have 
+been set to create a baseline. 
+
+It's curious to see that the network has not even learned what it had learned in the 
+previous design even being the volume one of the radiomic features
+that are passed as input.
 
 \begin{table}
   \centering
@@ -344,18 +357,17 @@ has not been any improvements at all.
     \textbf{Fold} & \textbf{Mixed} & \textbf{Train} & \textbf{Test} & 
     \textbf{Mixed} & \textbf{Train} & \textbf{Test} \\
     \hhline{=======}
-    0 & 17.664 & 50.720 & 5.708 & 0,758 & 0,9 & 0,638 \\
-    1 & 17.653 & 51.076 & 5.610 & 0,794 & 0,911 & 0,604 \\
-    2 & 17.653 & 51.303 & 5.539 & 0,738 & 0,898 & 0,679 \\
-    3 & 17.653 & 50.794 & 5.692 & 0,767 & 0,898 & 0,618 \\
+    0 & 65.436 & 187.216 & 21.320 & 0,43 & 0,42 & 0,419 \\
+    1 & 65.436 & 187.828 & 21.112 & 0,444 & 0,431 & 0,459 \\
+    2 & 65.392 & 190.308 & 20.336 & 0,472 & 0,474 & 0,426 \\
+    3 & 65.392 & 189.096 & 20.704 & 0,514 & 0,512 & 0,514 \\
     \hhline{=======}
-    \textbf{Total} & 70,623 & 203,893 & 22,549 & 0.764 & 0.902 & 0.635 \\
+    \textbf{Total} & 261,656 & 754,448 & 83,472 & 0.465 & 0.459 & 0.455 \\
     \hline
   \end{tabular}
 
   \caption[Shallow 4-CV results]{
-    Results for shallow model using 4-CV \label{tab:results-shallow-4CV}
-    \todo[inline]{Update these results}
+    Results for shallow model using 4-CV \label{tab:results-shallow-4CV}.
   }
 \end{table}
 
@@ -450,29 +462,48 @@ The final \gls{CI} with \gls{LOOCV} is 0.771 while the median \gls{CI} is 0.862.
 
 \ssecc{Build deep siamese network}
 
-Some work has been done in this task although it's far for complete since all the efforts 
-were centered around the model using radiomic features. The deep siamese network design
-was inspired by Inception v4 design which did use a Residual Network to improve training
-times. 
+The deep siamese network design is derived by the Shallow Siamese design shown in 
+\autoref{sec:shallow-siamese} although it has more convolutional layers and defines 
+multiple types of blocks that are used through the network. As the previous design,
+it uses both the radiomic scalar features and the images extracted from the \gls{CT} 
+scans. 
+
+Moreover, the design is also inspired in Inception-ResNet-v1 which in turn is 
+inspired in Inception-v4 \cite{neural:inception-4}. The whole network's structure can be 
+seen in \autoref{fig:residual-general}.
+
+The network is composed by a total of seven convolutional blocks and then it has a final
+pooling layer and three more fully connected layers where the radiomic scalar features are
+injected. Only the Stem (\autoref{fig:residual-block-stem}), 
+Reduction A (\autoref{fig:residual-block-reduce-a}) and
+Reduction B (\autoref{fig:residual-block-reduce-b}) blocks reduce the image dimensions,
+while the A (\autoref{fig:residual-block-a}) and B (\autoref{fig:residual-block-b}) 
+blocks are useful to learn deep features.
 
 \todo{Finish this section}
 
 \begin{figure}
   \centering
   \input{drawings/residual_general.tikz.tex}
+  \caption[Deep siamese network main structure]{
+    Deep siamese network main structure \label{fig:residual-general}
+    
+    The drawing represents the design used for the sister network in the deep siamese
+    network design.
+  }
 \end{figure}
 \begin{figure}
   \centering
   \begin{subfigure}[b]{.4\textwidth}
     \centering
     \scalebox{.9}{\input{drawings/residual_block_stem.tikz.tex}}
-    \caption{Residual network Stem Block}
+    \caption{Residual network Stem Block \label{fig:residual-block-stem}}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{.59\textwidth}
     \centering
     \scalebox{.9}{\input{drawings/residual_block_a.tikz.tex}}
-    \caption{Residual network convolutional Block A}
+    \caption{Residual network convolutional Block A \label{fig:residual-block-a}}
   \end{subfigure}
   \caption{Residual Network blocks}
 \end{figure}
@@ -481,28 +512,25 @@ times.
   \begin{subfigure}[b]{.49\textwidth}
     \centering
     \scalebox{.9}{\input{drawings/residual_block_reduce_a.tikz.tex}}
-    \caption{Residual network Reduction A}
+    \caption{Residual network Reduction A \label{fig:residual-block-reduce-a}}
   \end{subfigure}
   \begin{subfigure}[b]{.49\textwidth}
     \centering
     \scalebox{.9}{\input{drawings/residual_block_b.tikz.tex}}
-    \caption{Residual network Block B}
+    \caption{Residual network Block B \label{fig:residual-block-b}}
   \end{subfigure}
 
   \begin{subfigure}[b]{\textwidth}
     \centering
     \scalebox{.9}{\input{drawings/residual_block_reduce_b.tikz.tex}}
-    \caption{Residual network Block B}
+    \caption{Residual network Block B \label{fig:residual-block-reduce-b}}
   \end{subfigure}
   \caption{Residual Network blocks (continuation)}
 \end{figure}
 
-To do so, different types of blocks were used to create the network. 
+\sssecc{Results}
 
-This step is yet to be completed. Once the previous siamese models have been finished this
-one can start as an improvement of the previous ones.
-
-It can take at least one more week to complete this step.
+The results using the deep siamese network
 
 \begin{table}
   \centering
@@ -525,6 +553,8 @@ It can take at least one more week to complete this step.
 
   \caption[Residual 4-CV results]{
     Results for residual model using 4-CV \label{tab:results-residual-4CV}
+
+    \todo[inline]{Update these results}
   }
 \end{table}
 
