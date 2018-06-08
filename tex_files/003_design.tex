@@ -185,11 +185,13 @@ used in different contexts:
   \item[\Gls{mixed-pair}] \glsdesc*{mixed-pair}
 \end{description}
 
+When generating mixed pairs the rules are a bit different. Since the network is not supposed
+to know anything about the test set elements, only uncensored elements from the train set
+are used to avoid creating pairs where both elements are censored.
+
 \begin{figure}
   \centering
-
   \input{drawings/pairs_sets.tikz.tex}
-
   \caption{Types of pairs generated from the test and train sets}
 \end{figure}
 
@@ -198,19 +200,25 @@ used in different contexts:
 \label{sec:basic-siamese}
 
 The first step is to create an environment where different sisters networks can be tested
-for improvements. To do so, the loss and cost functions are defined assuming an output
-\( \bm{O} \) for the input \( \bm{X} \) of the sister network. This will be called the
-basic model.
+for improvements. To do so, the loss and cost functions are defined assuming a sister
+network's output \( \bm{O} \) form the input \( \bm{X} \). This will be called the
+\emph{basic model}.
 
 The distance comparison used for the following siamese networks is defined comparing the 
 absolute distance of the sister's output features and then applying the logistic function 
 into it to get an output value \( d \in [0, 1] \). This way if it's 1 it means \( T_B > T_A \).
+Future designs should implement the sister network's part for this model to work.
 \begin{align*}
   \bm{O}_A &= \operatorname{sister}(\bm{X}_A) \\
   \bm{O}_B &= \operatorname{sister}(\bm{X}_B) \\
   \sigma(x) &= \frac{1}{1 + \exp(-x)} \\
   d &= \sigma(||\bm{O}_B||_2 - ||\bm{O}_A||_2) 
 \end{align*}
+
+Note that, since the output is a real number, to compute the \gls{CI} a threshold has been
+set to round the real numbers to 0 or 1. The threshold value is 0,5 so if a number is 
+bigger than the threshold it will be rounded to 1 and if not, it will be rounded to 0.
+This conversion is only performed to compute the \gls{CI} and not when training the network.
 
 The loss function used for the model is the log-loss:
 \[
@@ -234,9 +242,9 @@ To be able to have a baseline and compare the results, not only with the state-o
 but with future designs too, a model using only the most prognostic feature, the volume, is 
 built.
 
-This design is a siamese network too and implements the sister network part. The model to fit
-is inspired by the idea "A bigger tumour volume means less chances of 
-survival" and it is the following one:
+This design is a siamese network too implementing the sister network part. The model to fit
+is inspired by the idea "A bigger tumour volume means less chances of survival" 
+and it is the following one:
 \[
   \operatorname{sister}(x) = w\cdot x + b
 \]
@@ -249,7 +257,14 @@ including the time to test and obtain the results.
 
 \sssecc{Results}
 
-The results with this model have been obtained using both 4-CV and \gls{LOOCV}.
+The results have been obtained using both 4-CV and \gls{LOOCV}. The parameters used to 
+train the model have been:
+\begin{itemize}
+  \item Learning rate: 0,05
+  \item Number of epochs: 200
+  \item Batch size: The whole dataset
+\end{itemize}
+
 As seen in \autoref{tab:results-volume-4CV}, when using 4-CV. The final \gls{CI} with mixed pairs
 is 0.613 and 0.623 for the test pairs.
 
@@ -268,7 +283,7 @@ is 0.613 and 0.623 for the test pairs.
     2 & 16.348 & 47.577 & 5.084 & 0,636 & 0,627 & 0,661 \\
     3 & 16.348 & 47.274 & 5.176 & 0,618 & 0,644 & 0,6 \\
     \hhline{=======}
-    \textbf{Total} & 65,414 & 188,612 & 20,868 & 0.627 & 0.635 & 0.632 \\
+    \textbf{Total} & 65.414 & 188.612 & 20.868 & 0,627 & 0,635 & 0,632 \\
     \hline
   \end{tabular}
 
@@ -313,11 +328,6 @@ This new design has more layers to reduce the dimensions of the image and is abl
 incorporate the scalar data. As it was previously said this design it's still part of the
 siamese network model.
 
-Some initial results have been obtained with this model although these are still not valid as
-this task has been scheduled for completion in a later step of the project. The cause of the 
-rescheduling is due to the long training times. Once a more basic model is working and
-with some results, this task will be finished.
-
 This task took two weeks to complete and no further development will be held with this task
 since the next efforts are centered around a model using only the radiomic features.
 
@@ -329,8 +339,14 @@ since the next efforts are centered around a model using only the radiomic featu
 
 \sssecc{Results}
 
-The results have been obtained using 4-\gls{CV}. The training parameters where a learning rate
-of 0.001, 10 epochs and a batch size of 40. A bigger batch size could not be used because
+The results have been obtained using 4-\gls{CV}. The training parameters where:
+\begin{itemize}
+  \item Learning rate: 0,001
+  \item Regularization factor: 0,01
+  \item Number of epochs: 10
+  \item Batch size: 40
+\end{itemize}
+A bigger batch size could not be used because
 the model was using a lot of memory. By having a small batch size the number of train 
 iterations was of 2.180. The 4-\gls{CV} results can be seen at \autoref{tab:results-shallow-4CV}.
 
@@ -362,7 +378,7 @@ that are passed as input.
     2 & 65.392 & 190.308 & 20.336 & 0,472 & 0,474 & 0,426 \\
     3 & 65.392 & 189.096 & 20.704 & 0,514 & 0,512 & 0,514 \\
     \hhline{=======}
-    \textbf{Total} & 261,656 & 754,448 & 83,472 & 0.465 & 0.459 & 0.455 \\
+    \textbf{Total} & 261.656 & 754.448 & 83.472 & 0,465 & 0,459 & 0,455 \\
     \hline
   \end{tabular}
 
@@ -398,8 +414,15 @@ and to fix some bugs.
 
 \sssecc{Results}
 
-The results obtained with this model are both with 4-CV and \gls{LOOCV}. The number of training
-steps is 1000 with a learning rate of 0.001.
+The results obtained with this model are both with 4-CV and \gls{LOOCV}. The training 
+parameters have been the following ones:
+\begin{itemize}
+  \item Learning rate: 0,001
+  \item Regularization factor: 0,01
+  \item Dropout probability: 0,2/1
+  \item Number of epochs: 1000
+  \item Batch size: The whole dataset
+\end{itemize}
 
 A summary of the results using 4-CV can be seen at \autoref{tab:results-scalar-4CV}. It can be
 observed that the number of pairs is not constant through all the folds. This is caused by
@@ -439,7 +462,7 @@ The final \gls{CI} with \gls{LOOCV} is 0.771 while the median \gls{CI} is 0.862.
     2 & 16.348 & 47.577 & 5.084 & 0,751 & 0,91 & 0,675 \\
     3 & 16.348 & 47.274 & 5.176 & 0,766 & 0,919 & 0,624 \\
     \hhline{=======}
-    \textbf{Total} & 65,414 & 188,612 & 20,868 & 0.764 & 0.918 & 0.620 \\
+    \textbf{Total} & 65.414 & 188.612 & 20.868 & 0,764 & 0,918 & 0,62   \\
     \hline
   \end{tabular}
 
@@ -530,7 +553,15 @@ blocks are useful to learn deep features.
 
 \sssecc{Results}
 
-The results using the deep siamese network
+To get the results for the deep siamese network 4-\gls{CV} has been used. The training
+parameters are the following ones:
+\begin{itemize}
+  \item Learning rate: 0,001
+  \item Regularization factor: 0,01
+  \item Dropout probability: 0,2/1
+  \item Number of epochs: 15
+  \item Batch size: 20
+\end{itemize}
 
 \begin{table}
   \centering
@@ -547,7 +578,7 @@ The results using the deep siamese network
     2 & 219.456 & 333.664 & 36.016 & 0,645 & 0,616 & 0,667 \\
     3 & 222.304 & 329.584 & 37.248 & 0,559 & 0,579 & 0,536 \\
     \hhline{=======}
-    \textbf{Total} & 884,512 & 1,325,152 & 146,880 & 0.589 & 0.592 & 0.58 \\
+    \textbf{Total} & 884.512 & 1.325.152 & 146.880 & 0,589 & 0,592 & 0,58 \\
     \hline
   \end{tabular}
 
@@ -559,6 +590,19 @@ The results using the deep siamese network
 \end{table}
 
 \ssecc{Predict patients survival}
+
+Once one of the siamese models is working the next step is to predict a patient's survival
+time. A basic approach would be to predict if they will be a long or short survival time 
+patient. Multiple ideas have been brainstormed although not all of them have been tested.
+
+The difficulty of the problem now consists in sorting a test element in its proper position 
+by using the comparison function \( T_A < T_B \) that the siamese network provides. 
+The problem is that, as it has been previously shown, this function gives the correct 
+result 76,4\% of the time but fails the other 23,6\%. This means that a classical sorting
+algorithm, like merge sort, cannot be used since this algorithm is based in a comparison
+function with 100\% of accuracy.
+
+The most solid idea consists in 
 
 This step is yet to be completed. Once there is a working model that allows to compare two 
 individuals to see which one lives more, the prediction of the survival time of the patients 
