@@ -1,0 +1,87 @@
+
+\begin{tikzpicture}[every node/.style={scale=.8}, node distance = 0.7, x=2.5em, y=2.5em]
+
+  \tikzstyle{module}=[rounded corners, draw, align=center,]
+  \tikzstyle{FC}=[module, fill=green!30]
+  \tikzstyle{conv}=[module, fill=orange!30]
+  \tikzstyle{pool}=[module, fill=cyan!30]
+  \tikzstyle{io}=[module, fill=purple!30]
+  \tikzstyle{tensor}=[font=\scriptsize\selectfont]
+  
+  
+  \node [io] (image) {Input};
+
+  \node [conv, below left = .5 and .5 of image.center] (B-0) {
+    Convolution \\
+    \( 100 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+  \node [conv, below = of B-0] (B-1) {
+    Convolution \\
+    \( 100 @ 3 \times 3 \times 3 \) \\
+    Stride = 2
+  };
+
+  \node [conv, left = of B-0] (A) {
+    Convolution \\
+    \( 100 @ 3 \times 3 \times 3 \) \\
+    Stride = 2
+  };
+
+  \node [conv, below right = .5 and .5 of image.center] (C-0) {
+    Convolution \\
+    \( 100 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+
+  \node [conv, below = of C-0] (C-1) {
+    Convolution \\
+    \( 100 @ 3 \times 3 \times 3 \) \\
+    Stride = 2
+  };
+
+  \node [conv, right = of C-0] (D-0) {
+    Convolution \\
+    \( 50 @ 1 \times 1 \times 1 \) \\
+    Same padding
+  };
+
+  \node [conv, below = of D-0] (D-1) {
+    Convolution \\
+    \( 50 @ 3 \times 3 \times 3 \) \\
+    Same padding
+  };
+
+  \node [conv, below = of D-1] (D-2) {
+    Convolution \\
+    \( 50 @ 3 \times 3 \times 3 \) \\
+    Stride = 2
+  };
+
+  \node (aux-1) at ($(D-2 -| C-1) + (0, -.5)$) {};
+
+  \node [FC, below left = .5 and .5 of aux-1.south] (con) {Concatenate};
+  \node [io, below = of con] (out) {Block B out};
+
+  \draw [-latex] (image) -| (A);
+  \draw [-latex] (image) -| (B-0) node[tensor, midway, above] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (image) -| (C-0) node[tensor, midway, above] {\( 15 \times 15 \times 15 \times 130 \)};
+  \draw [-latex] (image) -| (D-0);
+  
+  \draw [-latex] (A) |- (con) node[tensor, midway, below] {\( 7 \times 7 \times 7 \times 100 \)};
+
+  \draw [-latex] (B-0) -- (B-1) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 100 \)};
+  \draw [-latex] (B-1) |- (con) node[tensor, near start, left] {\( 7 \times 7 \times 7 \times 100 \)};
+  
+  \draw [-latex] (C-0) -- (C-1) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 100 \)};
+  \draw [-latex] (C-1) |- (con) node[tensor, near start, left] {\( 7 \times 7 \times 7 \times 100 \)};
+  
+  \draw [-latex] (D-0) -- (D-1) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 100 \)};
+  \draw [-latex] (D-1) -- (D-2) node[tensor, midway, left] {\( 15 \times 15 \times 15 \times 100 \)};
+  \draw [-latex] (D-2) |- (con) node[tensor, midway, below] {\( 7 \times 7 \times 7 \times 100 \)};
+
+  \draw [-latex] (con) -- (out) node[tensor, midway, left] {\( 7 \times 7 \times 7 \times 350 \)};
+
+\end{tikzpicture}
+
+
