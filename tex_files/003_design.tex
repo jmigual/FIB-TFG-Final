@@ -571,21 +571,26 @@ parameters are the following ones:
     \textbf{Fold} & \textbf{Mixed} & \textbf{Train} & \textbf{Test} & 
     \textbf{Mixed} & \textbf{Train} & \textbf{Test} \\
     \hhline{=======}
-    0 & 222.048 & 330.072 & 37.016 & 0,562 & 0,565 & 0,554 \\
-    1 & 220.704 & 331.832 & 36.600 & 0,59 & 0,61 & 0,567 \\
-    2 & 219.456 & 333.664 & 36.016 & 0,645 & 0,616 & 0,667 \\
-    3 & 222.304 & 329.584 & 37.248 & 0,559 & 0,579 & 0,536 \\
+    0 & 65.436 & 187.216 & 21.320 & 0,765 & 0,812 & 0,814 \\
+    1 & 65.436 & 187.828 & 21.112 & 0,821 & 0,813 & 0,813 \\
+    2 & 65.392 & 190.308 & 20.336 & 0,427 & 0,431 & 0,387 \\
+    3 & 65.392 & 189.096 & 20.704 & 0,389 & 0,359 & 0,428 \\
     \hhline{=======}
-    \textbf{Total} & 884.512 & 1.325.152 & 146.880 & 0,589 & 0,592 & 0,58 \\
+    \textbf{Total} & 261.656 & 754.448 & 83.472 & 0,601 & 0,603 & 0,614 \\
     \hline
   \end{tabular}
 
   \caption[Residual 4-CV results]{
     Results for residual model using 4-CV \label{tab:results-residual-4CV}
-
-    \todo[inline]{Update these results}
   }
 \end{table}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{images/results/residual_train}
+
+  \caption{\gls{CI} during training iterations}
+\end{figure}
 
 \ssecc{Predict patients survival}
 
