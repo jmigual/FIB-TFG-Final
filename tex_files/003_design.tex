@@ -1,7 +1,7 @@
 % !TEX root = ../main.tex
 
 \addtocontents{toc}{\protect\newpage}
-\secc[Design]{Design and implementation}
+\secc{Design and implementation}
 
 \ssecc{Get familiar with survival models}
 
@@ -266,7 +266,7 @@ train the model have been:
 \end{itemize}
 
 As seen in \autoref{tab:results-volume-4CV}, when using 4-CV. The final \gls{CI} with mixed pairs
-is 0.613 and 0.623 for the test pairs.
+is 0,613 and 0,623 for the test pairs.
 
 \begin{table}
   \centering
@@ -296,9 +296,9 @@ The results obtained with \gls{LOOCV} are shown in \autoref{fig:results-volume-L
 To train this model one element has been removed from the dataset and the model has 
 been trained with the rest of the elements (all minus one). It shows the \gls{CI} of each
 element when comparing it with the training set, so only the mixed pairs \gls{CI} are shown.
-The final \gls{CI} is 0.627 and the median \gls{CI} is 0.618.
+The final \gls{CI} is 0,627 and the median \gls{CI} is 0,618.
 
-These results are very similar from the ones previously obtained of 0.628 as explained in 
+These results are very similar from the ones previously obtained of 0,628 as explained in 
 \autoref{sec:state-of-the-art} (state-of-the art).
 
 \begin{figure}
@@ -308,8 +308,8 @@ These results are very similar from the ones previously obtained of 0.628 as exp
     Volume only model results using \acrshort{LOOCV} \label{fig:results-volume-LOOCV}
     
     Histogram showing the distribution of all the \acrshort{LOOCV} elements' \acrshort{CI}
-    when using mixed pairs to obtain the \acrshort{CI}. Final \gls{CI} is 0.627, median
-    \gls{CI} is 0.618.
+    when using mixed pairs to obtain the \acrshort{CI}. Final \gls{CI} is 0,627, median
+    \gls{CI} is 0,618.
   }
 \end{figure}
 
@@ -359,7 +359,7 @@ The results show a really poor performance, even poorer than random. So, these r
 do not improve the current state-of-the-art and are worse than the results that have 
 been set to create a baseline. 
 
-It's curious to see that the network has not even learned what it had learned in the 
+It's interesting to highlight that the network has not even learned what it had learned in the 
 previous design even being the volume one of the radiomic features
 that are passed as input.
 
@@ -403,7 +403,7 @@ Moreover, since this model inherits from the basic model, defined in \autoref{se
 regularization is applied too by adding the l2 norm of the weights. The loss and
 cost functions are the same too.
 
-To complete this step it took one week but it took two more weeks to validate the results 
+To complete this step it took one week but two more weeks were needed to validate the results 
 and to fix some bugs.
 
 \begin{figure}
@@ -429,10 +429,10 @@ observed that the number of pairs is not constant through all the folds. This is
 censoring, since not all members can form a pair with all the other ones some elements 
 have more available pairs than others. 
 
-From the 4-CV results it can be seen that the final test \gls{CI} is 0.635 and the final mixed 
-\gls{CI} is 0.764. Even thought it seems that the test results are very similar to the
-state-of-the art (0.628) when compared to the baseline the test results are similar but
-the mixed pairs results have improved (0.764 vs 0.616).
+From the 4-CV results it can be seen that the final test \gls{CI} is 0,635 and the final mixed 
+\gls{CI} is 0,764. Even thought it seems that the test results are very similar to the
+state-of-the art (0,628) when compared to the baseline the test results are similar but
+the mixed pairs results have improved (0,764 vs 0,616).
 
 The improvement with the baseline is relevant because the final objective of the project
 is to create a model to predict a patient's survival time. The final method to predict
@@ -444,8 +444,8 @@ indicator is the mixed \gls{CI}.
 The results using \gls{LOOCV} can be seen represented in \autoref{fig:results-scalar-LOOCV}. 
 In this case, only the mixed pairs have been compared to create the histogram.
 
-The final \gls{CI} with \gls{LOOCV} is 0.771 while the median \gls{CI} is 0.862. The final 
-\gls{CI} using \gls{LOOCV} is very similar to the one obtained using 4-CV (0.771 vs 0.764).
+The final \gls{CI} with \gls{LOOCV} is 0,771 while the median \gls{CI} is 0,862. The final 
+\gls{CI} using \gls{LOOCV} is very similar to the one obtained using 4-CV (0,771 vs 0,764).
 
 \begin{table}
   \centering
@@ -478,8 +478,8 @@ The final \gls{CI} with \gls{LOOCV} is 0.771 while the median \gls{CI} is 0.862.
     Scalar only model results using \acrshort{LOOCV} \label{fig:results-scalar-LOOCV}
     
     Histogram showing the distribution of all the \acrshort{LOOCV} elements' \acrshort{CI}
-    when using mixed pairs to obtain the \acrshort{CI}. Final \gls{CI} is 0.771, median 
-    \gls{CI} is 0.862.
+    when using mixed pairs to obtain the \acrshort{CI}. Final \gls{CI} is 0,771, median 
+    \gls{CI} is 0,862.
   }
 \end{figure}
 
@@ -495,7 +495,7 @@ Moreover, the design is also inspired in Inception-ResNet-v1 which in turn is
 inspired in Inception-v4 \cite{neural:inception-4}. The whole network's structure can be 
 seen in \autoref{fig:residual-general}.
 
-The network is composed by a total of seven convolutional blocks and then it has a final
+The network is composed by a total of seven convolutional blocks, a final
 pooling layer and three more fully connected layers where the radiomic scalar features are
 injected. Only the Stem (\autoref{fig:residual-block-stem}), 
 Reduction A (\autoref{fig:residual-block-reduce-a}) and
@@ -561,6 +561,18 @@ parameters are the following ones:
   \item Batch size: 20
 \end{itemize}
 
+The results with this training can be seen in \autoref{tab:results-residual-4CV}, the final
+mixed \gls{CI} is 0,601 while the final train \gls{CI} is 0,603.
+As it can be seen in \autoref{fig:results-residual-CI} only two of the four folds have 
+properly converged to a solution when training the residual model, while the other two folds
+have stayed in a random \gls{CI}. The two folds that have properly converged have been able
+to obtain an average mixed \gls{CI} of 0,793 which is similar to the results using only
+the scalar radiomic features (0,793 vs 0,771).
+
+Future work on this task will be to find the proper hyper-parameters to make sure that all
+the folds can finally converge and then train the model using \gls{LOOCV} to make sure
+that not only certain distributions are able to show this behavior.
+
 \begin{table}
   \centering
   \begin{tabular}{|c||c|c|c||c|c|c|}
@@ -589,7 +601,13 @@ parameters are the following ones:
   \centering
   \includegraphics[width=\textwidth]{images/results/residual_train}
 
-  \caption{\gls{CI} during training iterations}
+  \caption[Training iterations \gls{CI}]{
+    \gls{CI} during training iterations for each one of the 4-\gls{CV} folds. Each 
+    color represents a different fold. The real data is shown in a lighter color, as some
+    smoothing has been applied to show the tendency.
+
+    \label{fig:results-residual-CI}
+  }
 \end{figure}
 
 \ssecc{Predict patients survival}
@@ -598,24 +616,39 @@ Once one of the siamese models is working the next step is to predict a patient'
 time. A basic approach would be to predict if they will be a long or short survival time 
 patient. Multiple ideas have been brainstormed although not all of them have been tested.
 
-The difficulty of the problem now consists in sorting a test element in its proper position 
+The difficulty of the problem resides in sorting a test element at its proper position 
 by using the comparison function \( T_A < T_B \) that the siamese network provides. 
-The problem is that, as it has been previously shown, this function gives the correct 
-result 76,4\% of the time but fails the other 23,6\%. This means that a classical sorting
-algorithm, like merge sort, cannot be used since this algorithm is based in a comparison
-function with 100\% of accuracy.
+The handicap is that, as it has been previously shown, this function gives the correct 
+result 76,4\% of the time but fails the other 23,6\%, based on \autoref{sec:scalar-only} 
+results. This means that a classical sorting algorithm, like merge sort, cannot be 
+used since these type of algorithms are based in a comparison function with 100\% of accuracy.
 
-The first approach was to divide the whole set into long survivors, more than 4 years, 
-and short survivors, less than 4 years. Then, compare the patient against the two sets 
-\todo{Finish this explanation}.
+A first approach was to divide the training set by setting a threshold at 2 years
+and divide the set in long survivors and short survivors. Then compare each patient from the
+test set against the long survivors and the short survivors. If the patient survives less
+than the long survivors 70\% of the time then they will be classified as a short survivor and
+as a long survivor if otherwise. Results using this method can be seen at 
+\autoref{fig:survival-confusion}, final accuracy is 60\% while random accuracy is 50\%.
 
-The most solid idea consists in 
+\begin{figure}
+  \centering
+  \includegraphics[width=.5\textwidth]{images/results/survival_scalar}
 
-This step is yet to be completed. Once there is a working model that allows to compare two 
-individuals to see which one lives more, the prediction of the survival time of the patients 
-should be implemented.
+  \caption[Confusion matrix for survival classification]{
+    Confusion matrix for survival classification between long survivors and short 
+    survivors when using the results from \autoref{sec:scalar-only} that only uses
+    radiomic scalar features. Final accuracy is 60\% (106 / 178).
+    \label{fig:survival-confusion}
+  }
+\end{figure}
 
-This step should take at most one week to complete.
+Since these results are not quite satisfying, future work will be to improve this step.
+To do so, the next idea is to use the extracted features from the sister network output,
+instead of the siamese network output, and then train a \gls{CPH} model using these features.
+
+This way the siamese network is used to convert the regression problem into a classification 
+problem and train a model with it. Then by extracting the hidden features the model can be
+converted again into a regression model, already trained.
 
 \ssecc{Write documentation}
 
@@ -623,5 +656,6 @@ Since this project creates a software, some documentation for the software must 
 Moreover documenting the code is important to allow more people to work on the project.
 The project's documentation can be found at \url{https://jmigual.github.io/CNNSurv/}.
 
-This task has taken one week to complete.
+This task has taken one week to complete, although some work has already been done while 
+writing the code to make the task easier.
 
