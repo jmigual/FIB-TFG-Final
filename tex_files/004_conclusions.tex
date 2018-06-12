@@ -1,4 +1,34 @@
+% !TEX root = ../main.tex
+
 \secc{Conclusions}
 
-\todo{Insert conclusions}
+In this project a model that it's able to obtain a better \gls{CI} than the previous 
+state-of-the-art values has been created. The model used a deep learning model to do so
+and it used the extracted scalar radiomic features from the patients' \gls{CT} scans.
+
+Although the final model used only the extracted scalar values, there's still room for 
+improvement when using the \glspl{CNN}. This model was built and tested but a proper 
+hyper-parameter search may get better results, future work will be directed towards
+finding a good set of hyper-parameters that can help the model to converge.
+
+Furthermore, even having access to \gls{CC} clusters and being able to use \glspl{GPU}
+to train the deep learning models, the training times where very long so the developing
+process was slow.
+
+During the project some of the time was spent in learning how \glspl{DNN} and \glspl{CNN} 
+work and how to use them for \gls{ML}. Moreover, during the pre-process task getting 
+comfortable with the dataset and how to work with images and survival data was more
+important than it seemed.
+
+This project incorporates two important changes from previous approaches to survival
+problems. The first one is a way to convert the regression problem into a classification
+problem by using a siamese network. The second one is the usage of a \gls{DNN} to train
+the model on survival data.
+
+Even though the \gls{CI} has been improved, future work should also be focused in 
+using the results into a patient's survival prediction 
+
+Looking at the initial objectives at \autoref{sec:objectives} they all look complete,
+although more work is still needed when using deep learning-based methods to analyze 
+the images, such as \glspl{CNN} where there's still room for improvement.
 
