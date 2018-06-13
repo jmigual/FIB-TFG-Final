@@ -48,6 +48,8 @@
 \usepackage{tocloft}
 \usepackage{lipsum}
 \usepackage{todonotes}
+
+% To avoid titles and paragraphs cut between pages
 \usepackage[nobottomtitles*]{titlesec}
 \usepackage[defaultlines=4, all]{nowidow}
 
@@ -72,7 +74,7 @@ urlcolor={blue!80!black}]{hyperref}
 
 %%%%%%%% END OF INCLUDES %%%%%%%%%%
 
-\pgfplotsset{compat=1.15}
+\pgfplotsset{compat=1.15, compat/show suggested version=false}
 \usetikzlibrary{positioning, external}
 % \tikzexternalize[
 %     optimize=false,
@@ -148,3 +150,4 @@ urlcolor={blue!80!black}]{hyperref}
 \fancyfoot[ER, OL]{Bachelor Thesis}
 \renewcommand{\footrulewidth}{0.4pt}
 
+\raggedbottom
