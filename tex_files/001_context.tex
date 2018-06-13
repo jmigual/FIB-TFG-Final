@@ -9,15 +9,18 @@ to interact with their phone by only using voice commands like Google Assistant
 ~\cite{neural:amazon, neural:google-assistant}.
 
 Inside AI one of the domains that has greatly increased during the last years is 
-\gls{ML}. The main advantage is that it can solely learn from examples without explicit 
-teaching, and thus reducing the human interaction during the learning process. One of the 
-most used types is \emph{deep neural networks} and these have demonstrated impressive 
-performance against computer vision and Natural Language Processing tasks like the 
-classification of digits from the MNIST data set
+\gls{ML}. The main advantage of those unsupervised techniques is that it can solely 
+learn from examples without explicit teaching, and thus reducing the human interaction 
+during the learning process. One of the most used tools is \emph{deep neural networks} 
+and these have demonstrated impressive performance with computer vision and Natural 
+Language Processing tasks like the classification of digits from the MNIST data set
 ~\cite{neural:mnist, neural:empirical-evaluation-deep-architectures}.
 
-Regarding the medical field, recent deep learning algorithms, specially \gls{CNN} 
-have started to push the boundaries of precision medicine. Traditionally, medical 
+Regarding the Information Systems in Medicine, recent deep learning al\-go\-ri\-thms, specially 
+\gls{CNN} have started to push the boundaries of \gls{precision-medicine}, which is an
+emerging approach for disease treatment and prevention that takes into account individual 
+variability in genes, environment and lifestyle for each person
+~\cite{neural:precision-medicine}. Traditionally, medical 
 predictions have been based on a few clinical parameters with poor accuracy.
 However, other data types are available to improve such predictions. In this context, 
 medical images generated from \gls{MRI}, \gls{PET} or \gls{CT} scans are vastly 
@@ -30,25 +33,22 @@ approach started in the late 1990s and has slowly shifted from systems that are
 completely designed by humans to systems that are trained by computers using example data
 ~\cite{medical:survey-deep-learning}.
 
-Professor Benjamin Haibe-Kains has participated in one of the seminal studies in 
-\emph{Radiomics} (Nat Comm). \emph{Radiomics} is a new field, relying on pre-defined, 
-hand-engineered features computed from medical images, to better characterize tumours 
-and predict survival outcome.
-
 High-dose radiotherapy with or without chemotherapy is the standard of care for many
-locally advanced cancers, \emph{oropharynx cancer}. While effective in some patients,
+locally advanced cancers, like \emph{oropharynx cancer}. While effective in some patients,
 these treatments are associated with significant risks of early and late toxicities
 that impair patients' treatment adherence and long-term quality of life. Furthermore, 
 most cancers are currently treated with a one-size-fits-all approach that invariably leads
-to over-treatment of som patient and under-treatment of others. 
+to over-treatment of some patient and under-treatment of others. 
 The clinical implication of this is that some patients are cured by the standard 
 one-size-fits-all treatments currently employed while others are not 
 ~\cite{medical:personalized}. Refined prognostic 
 models are needed to assist clinicians in delivering the appropriate level of care.
 
-Radiomics is an emerging field of research that can non-invasively quantify tumour 
-phenotypes, based on mining and extracting a large number of quantitative imaging 
-features ~\cite{medical:radiomics:data, medical:radiomics:extract-information}.
+Professor Benjamin Haibe-Kains has participated in one of the seminal studies in 
+\emph{Radiomics} (Nat Comm). Radiomics is a new emerging field of research that can 
+non-invasively quantify tumour phenotypes, based on mining and extracting a large 
+number of quantitative imaging features
+~\cite{medical:radiomics:data, medical:radiomics:extract-information}.
 It is aimed at using computational techniques to extract
 the most informative features from radiological images routinely used in clinical settings.
 Recent studies have demonstrated the effectiveness of radiomic features as biomarkers 
@@ -64,22 +64,22 @@ radiomic pipelines comprise four main components:
 Different machine learning approaches, such as \glspl{NN}, have been applied for the last 
 step of the pipeline. However, recent advances have allowed for more complex (deeper) 
 \glspl{NN}, and have led to unique feature learning properties with unprecedented performance
-for image classification. Contrary to the conventional radiomic models, deep networks
-eliminate the need for hand-engineered features, which may not necessarily be the most
-relevant set of features for prognostication of cancer patients.
-
-Although promising, radiomics suffers from several 
-limitations. The most important one is that it relies on hand-engineered features, 
-these features are not guaranteed to be the most discriminant ones. Deep learning methods
-are end-to-end and, for a given task, they drive features from the data
+for image classification. Contrary to the conventional radiomic models, deep learning methods
+are end-to-end and eliminate the need for hand-engineered features, which may not necessarily 
+be the most relevant set of features for prognostication of cancer patients.
 ~\cite{medical:radiomics-ml-classifiers}.
+
+As these data treats with patients' survival, survival analysis methods are required to 
+be able to analyze and deal with issues related with survival data, such as patient 
+censoring and hazard prediction.
+
 
 \sssecc{Survival Analysis}
 \label{sec:survival}
 
 Survival Analysis is a branch of statistics that analyzes the duration time of the observed
 events. Typically it refers to the time to the failure of a physical component or to death of a
-patient. It usually defines the following terms~\cite{neural:survival-analysis}:
+patient. It usually defines the following terms~\cite{neural:survival-analysis-1}:
 
 \begin{description}
   \item[\Gls{event} \glssymbol{event}] \glsdesc*{event}
@@ -88,11 +88,10 @@ patient. It usually defines the following terms~\cite{neural:survival-analysis}:
   \item[\Gls{censoring}] \glsdesc*{censoring}
 \end{description}
 
-The survival and hazard functions are the two fundamental functions in survival analysis. The
-survival function \( S(t) = \Pr(T \ge t) \), is the probability that an individual has
-\emph{survived} beyond time \( t \). The hazard function \( \lambda(t) \) is a measure of risk at 
-time \( t \) and it's defined as:
-~\cite{medical:cox}
+The survival and hazard functions are the two fundamental functions in survival analysis
+~\cite{medical:cox}. The survival function \( S(t) = \Pr(T \ge t) \), is the probability that 
+an individual has \emph{survived} beyond time \( t \). The hazard function \( \lambda(t) \) 
+is a measure of risk at time \( t \) and it's defined as:
 \[
   \lambda(t) = \lim_{\Delta t \rightarrow 0}
   \frac{\Pr(t \le T < t + \Delta t | T \ge t)}{\Delta t}
@@ -605,7 +604,17 @@ Also, while just inferring the values does not require
 much power, training needs a lot more power. 
 
 To solve this problem, the training will be done at \gls{CC} a computing facility which 
-has multiple computing clusters with \glspl{GPU}.
+has multiple computing clusters with \glspl{GPU}. \gls{CC} provides access to two different 
+clusters:
+\begin{itemize}
+  \item \emph{Cedar} Has a total of 58.416 \acrshort{CPU} cores for computation and 584 NVIDIA P100 
+  pascal \glspl{GPU}. The complete cluster specification can be found at
+  \url{https://docs.computecanada.ca/wiki/Cedar}
+  \sloppy
+  \item \emph{Graham} Has a total of 35.520 \acrshort{CPU} cores and 320 NVIDIA P100 \glspl{GPU}.
+  The complete cluster specification can be found at
+  \url{https://docs.computecanada.ca/wiki/Graham}
+\end{itemize}
 
 \sssecc{Monitoring Tools}
 
