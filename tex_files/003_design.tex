@@ -307,6 +307,9 @@ The final \gls{CI} is 0,627 and the median \gls{CI} is 0,618.
 These results are very similar to the ones previously obtained of 0,628 as explained in 
 \autoref{sec:state-of-the-art} (state-of-the art).
 
+Since, to get this results, the model needs to be trained 490 times, one for each patient, 
+the training was done in parallel at one of \gls{CC} clusters.
+
 \begin{figure}
   \centering
   \includegraphics[width=.8\textwidth]{images/results/c-index_volume}
@@ -355,6 +358,8 @@ The results have been obtained using 4-\gls{CV}. The training parameters where:
 A bigger batch size could not be used because
 the model was using a lot of memory. By having a small batch size the number of train 
 iterations was of 2.180. The 4-\gls{CV} results can be seen at \autoref{tab:results-shallow-4CV}.
+Since this model uses \gls{CNN}, \glspl{GPU} are needed to speed-up the computation, so 
+it was trained at \gls{CC} using \gls{GPU} nodes.
 
 It can be seen that the number of pairs is not the same as in \autoref{tab:results-volume-4CV} 
 from the volume model. This is caused by data augmentation. Since
@@ -448,7 +453,9 @@ the new patient's survival time can will be made. This means that the most relev
 indicator is the mixed \gls{CI}.
 
 The results using \gls{LOOCV} can be seen represented in \autoref{fig:results-scalar-LOOCV}. 
-In this case, only the mixed pairs have been compared to create the histogram.
+In this case, only the mixed pairs have been compared to create the histogram. In this case
+too the training was performed in parallel at one of \gls{CC} clusters since the model needs 
+to be trained many times to get the \gls{LOOCV} results.
 
 The final \gls{CI} with \gls{LOOCV} is 0,771 while the median \gls{CI} is 0,862. The final 
 \gls{CI} using \gls{LOOCV} is very similar to the one obtained using 4-CV (0,771 vs 0,764).
@@ -568,7 +575,10 @@ parameters are the following ones:
 \end{itemize}
 
 The results with this training can be seen in \autoref{tab:results-residual-4CV}, the final
-mixed \gls{CI} is 0,601 while the final train \gls{CI} is 0,603.
+mixed \gls{CI} is 0,601 while the final train \gls{CI} is 0,603. Since this model uses 
+\gls{CNN}, which can be speeded-up by using \glspl{GPU}, the model was trained at one of 
+\gls{CC} clusters using \gls{GPU} enabled nodes.
+
 As it can be seen in \autoref{fig:results-residual-CI} only two of the four folds have 
 properly converged to a solution when training the residual model, while the other two folds
 have stayed in a random \gls{CI}. The two folds that have properly converged have been able
