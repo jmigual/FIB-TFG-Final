@@ -607,14 +607,20 @@ To solve this problem, the training will be done at \gls{CC} a computing facilit
 has multiple computing clusters with \glspl{GPU}. \gls{CC} provides access to two different 
 clusters:
 \begin{itemize}
-  \item \emph{Cedar} Has a total of 58.416 \acrshort{CPU} cores for computation and 584 NVIDIA P100 
-  pascal \glspl{GPU}. The complete cluster specification can be found at
+  \item \emph{Cedar} Has a total of 58.416 \acrshort{CPU} cores and 584 NVIDIA P100 
+  Pascal \glspl{GPU} for computation. The complete cluster specification can be found at
   \url{https://docs.computecanada.ca/wiki/Cedar}
   \sloppy
-  \item \emph{Graham} Has a total of 35.520 \acrshort{CPU} cores and 320 NVIDIA P100 \glspl{GPU}.
-  The complete cluster specification can be found at
+  \item \emph{Graham} Has a total of 35.520 \acrshort{CPU} cores and 320 NVIDIA P100 
+  Pascal \glspl{GPU} for computation. The complete cluster specification can be found at
   \url{https://docs.computecanada.ca/wiki/Graham}
 \end{itemize}
+
+Both clusters use a queue system managed through Slurm Workload Manager \cite{tool:slurm}. 
+The queuing system has a score and it lowers the score based on the resources that have been
+used. The lower the score the less the priority a job has to be executed into the cluster.
+This means that, when using the cluster, requesting too much or unnecessary resources should be 
+avoided.
 
 \sssecc{Monitoring Tools}
 
