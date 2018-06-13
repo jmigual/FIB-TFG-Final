@@ -10,8 +10,13 @@
 As it was previously stated the data needs to be preprocessed before start training with it.
 This steps are required because small changes can really help in reducing the time needed to
 fit the model. Also, by normalizing the data and setting variance to 1 and mean to 0 the network
-can converge faster.
-~\cite{neural:efficient-backprop}
+can converge faster ~\cite{neural:efficient-backprop}. 
+The preprocess steps are divided into three categories:
+\begin{itemize}
+  \item Preprocess the image data
+  \item Preprocess the scalar data
+  \item Generate the pairs for training
+\end{itemize}
 
 The whole preprocess task took longer than expected as many tasks required more steps than 
 planned. The planned duration was 1 week and the final duration was from March 13\Th and
@@ -30,7 +35,8 @@ sources we have 544 patients with both a \gls{CT} scan and the clinical informat
 
 However, because there was a problem in the way the \gls{CT} scan was computed we only have
 the tumour annotations for 509 of the 544 patients, so the data that we can use is reduced
-again. \textbf{509} will be the final dataset size that will be used for the next 
+again. Moreover, while extracting the radiomic features only 490 of the 509 patients produce 
+usable results. \textbf{490} will be the final dataset size that will be used for the next 
 steps.
 
 For all the valid patients their directory structure is the same. They contain two folders,

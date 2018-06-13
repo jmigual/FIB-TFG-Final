@@ -6,29 +6,42 @@ In this project a model that it's able to obtain a better \gls{CI} than the prev
 state-of-the-art values has been created. The model used a deep learning model to do so
 and it used the extracted scalar radiomic features from the patients' \gls{CT} scans.
 
-Although the final model used only the extracted scalar values, there's still room for 
-improvement when using the \glspl{CNN}. This model was built and tested but a proper 
-hyper-parameter search may get better results, future work will be directed towards
-finding a good set of hyper-parameters that can help the model to converge.
+However, the model for which the best results were obtained did not use \glspl{CNN} to 
+predict the \gls{CI}. When creating a model using \glspl{CNN} the training times were
+really high so the development process was slow. Having access to \gls{CC} clusters  
+and being able to use \glspl{GPU} train the models helped in obtaining a initial solution,
+which, otherwise, could not have been obtained using only \acrshort{CPU} training.
 
-Furthermore, even having access to \gls{CC} clusters and being able to use \glspl{GPU}
-to train the deep learning models, the training times where very long so the developing
-process was slow.
+Moreover, by using \gls{CC} clusters, it was possible to validate the scalar only model 
+by using \gls{LOOCV} since all the folds were trained simultaneously in the cluster.
 
 During the project some of the time was spent in learning how \glspl{DNN} and \glspl{CNN} 
-work and how to use them for \gls{ML}. Moreover, during the pre-process task getting 
-comfortable with the dataset and how to work with images and survival data was more
+work and how to use them for \gls{ML}, acquiring this knowledge was later found useful
+when creating the different deep learning models. Moreover, during the pre-process task 
+getting comfortable with the dataset and how to work with images and survival data was more
 important than it seemed.
 
-This project incorporates two important changes from previous approaches to survival
-problems. The first one is a way to convert the regression problem into a classification
+This project incorporates two important innovations from previous approaches to survival
+problems. The first one, is a way to convert the regression problem into a classification
 problem by using a siamese network. The second one is the usage of a \gls{DNN} to train
 the model on survival data.
-
-Even though the \gls{CI} has been improved, future work should also be focused in 
-using the results into a patient's survival prediction 
 
 Looking at the initial objectives at \autoref{sec:objectives} they all look complete,
 although more work is still needed when using deep learning-based methods to analyze 
 the images, such as \glspl{CNN} where there's still room for improvement.
 
+\ssecc{Future steps}
+
+Some of the work previously stated can be improved in some ways. 
+
+\begin{itemize}
+  \item When working with the deep residual siamese and using \glspl{CNN} there's still 
+  room for improvement. This model was built and tested but a proper 
+  hyper-parameter search may get better results, future work will be directed towards
+  finding a good set of hyper-parameters that can help the model to converge.
+  \item Improvements towards using \glspl{CNN} for the model can also be focused in 
+  using transfer learning once 3D pre-trained \gls{CNN} models start to appear.
+  \item Even though the \gls{CI} has been improved, future work should also be focused in 
+  using the results to predict a patient's survival time or risk.
+  \item The found model should also be validated by using more data or an external dataset.
+\end{itemize}
