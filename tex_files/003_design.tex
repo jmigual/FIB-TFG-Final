@@ -33,7 +33,7 @@ We also have the clinical information of 661 patients, although we do not have a
 each of the clinical information patients. Through the intersection of each of the two data
 sources we have 544 patients with both a \gls{CT} scan and the clinical information.
 
-However, because there was a problem in the way the \gls{CT} scan was computed we only have
+However, because the radiologists did not properly annotate the images, we only have
 the tumour annotations for 509 of the 544 patients, so the data that we can use is reduced
 again. Moreover, while extracting the radiomic features only 490 of the 509 patients produce 
 usable results. \textbf{490} will be the final dataset size that will be used for the next 
@@ -213,7 +213,8 @@ network's output \( \bm{O} \) form the input \( \bm{X} \). This will be called t
 The distance comparison used for the following siamese networks is defined comparing the 
 absolute distance of the sister's output features and then applying the logistic function 
 into it to get an output value \( d \in [0, 1] \). This way if it's 1 it means \( T_B > T_A \).
-Future designs should implement the sister network's part for this model to work.
+From a Software Engineering perspective the basic siamese model is an abstract class and
+future designs should implement the sister network's method for this model to work.
 \begin{align*}
   \bm{O}_A &= \operatorname{sister}(\bm{X}_A) \\
   \bm{O}_B &= \operatorname{sister}(\bm{X}_B) \\
@@ -326,7 +327,7 @@ the training was done in parallel at one of \gls{CC} clusters.
 \label{sec:shallow-siamese}
 
 The initial shallow siamese network design had a very simple design for the sister network. 
-In fact, it was so simple that a proper \gls{CNN} could not be build, the original design 
+In fact, it was so simple that a proper \gls{CNN} could not be built, the original design 
 can be found in \autoref{fig:shallow-sister}.
 
 The main problem was that there were only two convolutional layers so that when trying to reduce
@@ -366,7 +367,7 @@ from the volume model. This is caused by data augmentation. Since
 data augmentation is used, there are four images for each patient so the number of pairs
 increases too.
 
-The results show a really poor performance, even poorer than random. So, these results
+The results show a really poor performance. So, these results
 do not improve the current state-of-the-art and are worse than the results that have 
 been set to create a baseline. 
 
