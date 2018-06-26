@@ -7,12 +7,14 @@
     }
 
     \foreach \y in {3,4,5} {
-      \draw [-latex] (D-1) to[bend right=90] (D-\y);
+      \draw [-latex] (D-\y) to[bend left=90] (D-1);
     }
 
     \foreach \y/\z in {1/2, 3/4} {
-      \draw [-latex] (D-\y) -- (D-\z);
+      \draw [-latex]  (D-\z) -- (D-\y);
     }
-    \draw [-latex] (D-3) to[bend left=90] (D-5);
+    \draw [-latex] (D-5) to[bend right=90] (D-3);
   }
+
+  \draw[-latex] (-1.5, 1) -- (-1.5, 5) node[midway, above, sloped]{time};
 \end{tikzpicture}
