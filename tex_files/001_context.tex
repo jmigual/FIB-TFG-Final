@@ -278,7 +278,7 @@ These are defined as:
 
 So, the whole activation for unit \( i \) of layer \( l \) is as follows:
 \begin{align*}
-  z_i^{[l]} &= \sum_{j = 1}^{n^{[l]}} w_{ij}^{[l]} + w_{i0}^{[l]} \cdot a_j^{[l - 1]} \\
+  z_i^{[l]} &= \sum_{j = 1}^{n^{[l]}} w_{ij}^{[l]} \cdot a_j^{[l - 1]} + w_{i0}^{[l]}\\
   a_i^{[l]} &= g^{[l]}(z_i^{[l]})
 \end{align*}
 
